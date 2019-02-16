@@ -15,7 +15,7 @@ def __init__(self,courseCode,Time,location,day):
     self.location=location
     self.days=convertDay(day)
 
-def convertDay(day):
+def convertDay(self,day):
     dayNum=[]
     tempdays=day.strip().split(" ")
     for days in tempdays:
