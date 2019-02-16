@@ -13,5 +13,5 @@ class Restrictions:
   def getbreakTime(self):
         return self.breakTime
 
-  def intensity(self):
+  def getIntensity(self):
       return self.intensity
