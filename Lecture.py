@@ -8,7 +8,6 @@ class Lecture:
     courseCode=""
 
 def __init__(self,courseCode,Time,location,day,tutorialsdays):
-    Time=Time.split("-")
     Start= Time[0].split(":")
     End= Time[1].split(":")
     self.courseCode=courseCode 
@@ -16,7 +15,7 @@ def __init__(self,courseCode,Time,location,day,tutorialsdays):
     self.endTime= (int(End[0]), int(End[1]))
     self.location=location
     self.days=convertDay(day)
-    self.tutorials = tutorialdays
+    self.tutorials = tutorialsdays
 
 def convertDay(day):
     dayNum=[]
@@ -33,3 +32,6 @@ def convertDay(day):
         elif days == "Fri":
             dayNum.append(4)
     return dayNum
+
+def getTimes(self):
+	return (self.startTime, self.endTime)
