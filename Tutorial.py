@@ -15,7 +15,7 @@ def __init__(self,courseCode,Time,location,day):
     self.location=location
     self.days=convertDay(day)
 
-def convertDay(day):
+def convertDay(self,day):
     dayNum=[]
     tempdays=day.strip().split(" ")
     for days in tempdays:
@@ -30,3 +30,6 @@ def convertDay(day):
         elif days == "Fri":
             dayNum.append(4)
     return dayNum
+    
+def getTimes(self):
+	return (self.startTime, self.endTime)
