@@ -14,7 +14,7 @@ def __init__(self,courseCode,Time,location,day,tutorialsdays):
     self.startTime= (int(Start[0]), int(Start[1]))
     self.endTime= (int(End[0]), int(End[1]))
     self.location=location
-    self.days=convertDay(day)
+    self.days=self.convertDay(day)
     self.tutorials = tutorialsdays
 
 def convertDay(self,day):
