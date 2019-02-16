@@ -1,14 +1,17 @@
 class Lecture:
+
     startTime=tuple()
     endTime=tuple()
     location=""
     days=[]
     tutorials=[]
-def Lecture(self,Time,location,day,tutorialsdays):
+    courseCode=""
+
+def __init__(self,courseCode,Time,location,day,tutorialsdays):
     Time=Time.split("-")
     Start= Time[0].split(":")
     End= Time[1].split(":")
-
+    self.courseCode=courseCode 
     self.startTime= (int(Start[0]), int(Start[1]))
     self.endTime= (int(End[0]), int(End[1]))
     self.location=location
