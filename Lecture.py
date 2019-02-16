@@ -35,3 +35,6 @@ def convertDay(day):
 
 def getTimes(self):
 	return (self.startTime, self.endTime)
+
+def getTutorials(self):
+	return self.tutorials
