@@ -255,3 +255,35 @@ def scheduleRanker(schedule, restrictions):
 
 
 	schedule.setRating(firstRank+secondRank+thirdRank)
+
+def tutorialParser(tutorial):
+	returnedList = []
+	name = {"Name":tutorial.courseCode}
+	location = {"Location":tutorial.location}
+	days = {"Days":tutorial.days}
+	startTime = {"Start Time":tutorial.startTime}
+	endTime = {"End Time":tutorial.endTime}
+	returnedList = [name,location,days,startTime,endTime]
+	return returnedList
+
+def lectureParser(lecture):
+	returnedList = []
+	name = {"Name":lecture.courseCode}
+	location = {"Location":lecture.location}
+	days = {"Days":lecture.days}
+	startTime = {"Start Time":lecture.startTime}
+	endTime = {"End Time":lecture.endTime}
+	tutorialsList = []
+	for tut in lecture.tutorials:
+		tutorialsList.append(tutorialParser(tut))
+	returnedList = [name,location,days,startTime,endTime,tutorialsList]
+	return returnedList
+
+def scheduleParser(schedule):
+	returnedList = []
+	rating = {"Rating":schedule.rating}
+	lecturesList = []
+	for lecture in schedule.lectures:
+		lecturesList.append(lectureParser(lecture))
+	returnedList = [rating,lecturesList]
+	return returnedList

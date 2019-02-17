@@ -143,7 +143,6 @@ def objectCreator(superList,courseCode,courseNumber):
             crazyList.append(newLecture)   
     return crazyList
 
-            
 def main(term,classes):
     #constants throughout the functions
     url = "https://central.carleton.ca/prod/bwysched.p_select_term?wsea_code=EXT"
