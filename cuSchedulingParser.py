@@ -139,7 +139,7 @@ def objectCreator(superList,courseCode,courseNumber):
                     tutorials.append(newTutorial)
                 newCourseCode = courseCode.get('sel_subj')
                 newCourseCode += courseNumber
-            newLecture = Lecture(courseCode, entry[1],entry[2],entry[0],tutorials)
+            newLecture = Lecture(newCourseCode, entry[1],entry[2],entry[0],tutorials)
             crazyList.append(newLecture)
     return crazyList
 
