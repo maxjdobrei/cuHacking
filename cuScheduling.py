@@ -134,16 +134,17 @@ def overlapChecker(potentialSchedule, lecture):
 
 def overlapCheckerTwo(potentialSchedule):
 
-	times = []
+	timez = []
 	tempSched = Schedule(potentialSchedule)
 
 	for i in range(5):
 		dayClasses = tempSched.getClassesOnDay(i)
+		timez.clear()
 		for lect in dayClasses:
-			times.append(lect.getTimes())
+			timez.append(lect.getTimes())
 
-			for time in times:
-				for timeTwo in times:
+			for time in timez:
+				for timeTwo in timez:
 					if time!=timeTwo:
 						if time[0][0] == timeTwo[1][0]:
 							if time[0][1] <= timeTwo[1][1]:
@@ -185,33 +186,49 @@ def addTutorialsHelper(potentialSchedule, lectures):
 	for i in range(len(lectures)):
 		indexCounter.append(0)
 
+	foundSomething = False
 	tutorialsToCheck = True
 	listOfSchedules = []
+	holder = 0
 	counter = 0;
+	endResult = -1
 
 	while tutorialsToCheck:
+		foundSomething = False
 		listOfSchedules.clear()
 		listOfSchedules.append(potentialSchedule)
-		counter = 0
 		holder = indexCounter[0]
+		counter = 0
 
 		for i in range(len(lectures)):
 			for j in range(indexCounter[i], len(lectures[i].getTutorials())):
-
+				
 				if overlapChecker(listOfSchedules[counter], lectures[i].getTutorials()[j]):
-					indexCounter[i] = j + 1
+					foundSomething = True
 					temp = listOfSchedules[counter][:]            ###################################################################################################
 					temp.append(lectures[i].getTutorials()[j])
-
-					if len(temp) == (len(potentialSchedule) + len(lectures)):
-						result.append(temp)
-
+					for resultSched in result:
+						if temp == resultSched:
+							foundSomething = False
+							indexCounter[i] = len(lectures[i].getTutorials())
 					else:
-						listOfSchedules.append(temp)
-						counter += 1
-						break
-		if holder == indexCounter[0]:
-			tutorialsToCheck = False
+						if j ==  (len(lectures[i].getTutorials()) - 1):
+							indexCounter[i] = 0
+						else:
+							indexCounter[i] = j + 1
+						if len(temp) == (len(potentialSchedule) + len(lectures)):
+							result.append(temp)
+						else:
+							listOfSchedules.append(temp)
+							counter += 1
+							break
+				else:
+					foundSomething = False
+					break
+			if foundSomething == False:
+				tutorialsToCheck = False
+		if foundSomething == False:
+				tutorialsToCheck = False
 
 	return result
 
