@@ -219,9 +219,9 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
 	if timeOfDay=="":
-		timeofDay="23:00"
+		timeofDay="Afternoon"
 	if hardTime=="":
-		hardTime="Afternoon"
+		hardTime="1:00"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
 	for	result	in	results:
