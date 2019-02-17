@@ -7,6 +7,12 @@ validSchedules = []
 
 
 def createSchedules(lecturesFound):
+	try:
+		if lecturesFound == "":
+			return [[]]
+	except:
+		pass
+	
 	tempSchedule = [0,0,0,0,0,0]
 
 	for lec in lecturesFound[0]:

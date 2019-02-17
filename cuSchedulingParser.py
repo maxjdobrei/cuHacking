@@ -228,17 +228,23 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		scheduleRanker(result,restrictions)
 		rankedResults.append(result.getRating())
 		rankedResults.sort()
+		rankedResults.reverse()
+		toBeCopied = []
 		bestFive	=	[]
-		if	len(rankedResults)	>=	5:
-			for	i	in	range(len(rankedResults)	-	5,	len(rankedResults)):
-				temp	=	bestFive[:]
+		if	len(rankedResults)	>=	10:
+			for	i	in	range(10):
+				temp	=	bestFive
 				bestFive.append(getSchedule(results,temp,	rankedResults[i]))
+				toBeCopied.append(bestFive[0])
+				toBeCopied.append(bestFive[2])
+				toBeCopied.append(bestFive[4])
+				toBeCopied.append(bestFive[6])
+				toBeCopied.append(bestFive[8])
 		else:
 			for	i	in	range(len(rankedResults)):
 				temp	=	bestFive[:]
 				bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-	for	sched in bestFive:
-		if not sched is None:
+		for	sched	in	bestFive:
 			listoBisto.append(scheduleParser(sched))
 	return	listoBisto
 print(superMain("Winter",["COMP1406","COMP1805","ENST1020"],"3:30","Morning"))
