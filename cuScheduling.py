@@ -9,7 +9,7 @@ validSchedules = []
 def createSchedules(lecturesFound):
 	try:
 		if lecturesFound == "":
-			return [[]]
+			return []
 	except:
 		pass
 

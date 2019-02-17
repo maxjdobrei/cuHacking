@@ -181,11 +181,7 @@ def	getLetterInCourseCode(parent):
 def	getSchedule(allResults,	rating):
 	for	result	in	allResults:
 		if	result.getRating()	==	rating:
-			for	r	in	someResults:
-				if	result	==	r:
-					pass
-				else:
-					return	result
+			return	result
 
 def	main(term,classes):
 	#constants	throughout	the	functions
@@ -221,9 +217,9 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		return []
 	rankedResults	=	[]
 	listoBisto	=	[]
-	if timeOfDay=="" or timeOfDay==null:
+	if timeOfDay=="":
 		timeofDay="Afternoon"
-	if hardTime=="" or hardTime==null:
+	if hardTime==""
 		hardTime="23:00"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
