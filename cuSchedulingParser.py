@@ -81,7 +81,7 @@ from Restrictions import *
 #             elif days == "Fri":
 #                 dayNum.append(4)
 #         return dayNum
-    
+
 #     def getTimes(self):
 # 	    return (self.startTime, self.endTime)
 
@@ -94,7 +94,7 @@ class MegaList:
 
     def addIt(self,list):
         self.bigList.append(list)
-    
+
     def printIt(self):
         print(self.bigList)
 
@@ -127,8 +127,8 @@ def termSelector(url,desiredTerm,courseCode,courseNumber):
     page = browser.get_current_page()
     return courseGetter(page,courseCode,courseNumber)
 
- 
-    
+
+
 def courseGetter(page,courseCode,courseNumber):
     holderCount = -1
     #finds all tables in soup object
@@ -221,10 +221,10 @@ def objectCreator(superList,courseCode,courseNumber):
                 newCourseCode = courseCode.get('sel_subj')
                 newCourseCode += courseNumber
             newLecture = Lecture(courseCode, entry[1],entry[2],entry[0],tutorials)
-            crazyList.append(newLecture)   
+            crazyList.append(newLecture)
     return crazyList
 
-            
+
 def main(term,classes):
     #constants throughout the functions
     url = "https://central.carleton.ca/prod/bwysched.p_select_term?wsea_code=EXT"
@@ -254,4 +254,6 @@ def main(term,classes):
 
 
 results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
-print(results)
+rankedResults = scheduleRanker(results).sort()
+
+print(rankedResults)
