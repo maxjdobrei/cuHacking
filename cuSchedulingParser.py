@@ -63,6 +63,7 @@ def courseGetter(page,courseCode,courseNumber):
         colspans = str(colspans)
         colspans =  colspans.split('colspan=')
         for info in colspans:
+            checkerSuper = False
             if "Lecture" in info:
                 isLecture = True
                 isTutorial = False
@@ -87,7 +88,10 @@ def courseGetter(page,courseCode,courseNumber):
                 #Calculate Time
                 times = times.split()
                 times.pop(0)
-                times.pop(0)
+                if len(times) == 0:
+                    checkerSuper = True
+                else:
+                    times.pop(1)
                 #Calculate building
                 building = building.split("</b>")
                 building.pop(0)
@@ -104,7 +108,9 @@ def courseGetter(page,courseCode,courseNumber):
                 elif isTutorial == True:
                     parent = holderCount
                 listOfAll = [days,times,location,isLecture,isTutorial]
-                if superCount == 0:
+                if checkerSuper == True:
+                    pass
+                elif superCount == 0:
                     listOfAll.append(parent)
                     superList = MegaList()
                     superList.addIt(listOfAll)
@@ -180,8 +186,8 @@ def main(term,classes):
     return (crazyHugeList)
 
 rankedResults = []
-restrictions = Restrictions("Morning", "3:30", ["COMP1805","MATH1102","COMP1406","ENST1020","PSYC1001"])
-results = createSchedules(main("Fall",["COMP1805","ENST1020","COMP1406","MATH1002","PSYC1001"]))
+restrictions = Restrictions("Morning", "3:30", ["COMP1805","MATH1002","COMP1406","ENST1020"])
+results = createSchedules(main("Fall",["COMP1805","ENST1020","COMP1406","MATH1002"]))
 print(len(results))
 for result in results:
 	scheduleRanker(result,restrictions)
@@ -192,11 +198,10 @@ rankedResults.sort()
 print(len(rankedResults))
 bestFive = []
 if len(rankedResults) >= 5:
-	print("yuh")
 	for i in range(len(rankedResults) - 5, len(rankedResults)):
 		bestFive.append(getSchedule(results, rankedResults[i]))
 else:
 	for i in range(len(rankedResults)):
-		bestFive.append(getSchedule(results, rankedResults[i]))	
+		bestFive.append(getSchedule(results, rankedResults[i]))
 
 print(bestFive)
