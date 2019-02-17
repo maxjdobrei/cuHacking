@@ -173,6 +173,6 @@ def main(term,classes):
 
 
 results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
-rankedResults = scheduleRanker(results).sort()
+rankedResults = scheduleRanker(results,restrictions).sort()
 
 print(rankedResults)
