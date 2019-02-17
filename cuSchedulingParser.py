@@ -127,32 +127,56 @@ def courseGetter(page,courseCode,courseNumber):
 	return objectCreator(superList,courseCode,courseNumber)
 
 
-#   0   1	   2	   3			 4	 5		   INDEX
+#   0   1	   2	   3			 4	 	5		   INDEX
 #[days,times,location,isLecture,isTutorial,parent]
 def objectCreator(superList,courseCode,courseNumber):
 	#crazyList will store all of my Lecture Objects
 	crazyList = []
 	#print(len(superList.bigList))
 	#print(superList.bigList)
+	enumerable = 0
 	for entry in superList.bigList:
 		#if it is a lecture.
 		if entry[3] == True:
+			enumerable +=1
 			newCourseCode = ''
 			newTutCourseCode = ''
 			tutorials = []
 			parentWanted = entry[5]
+			newCourseCode = courseCode.get('sel_subj')
+			newCourseCode += courseNumber
+			newCourseCode = str(newCourseCode)
+			newCourseCode += str(getLetterInCourseCode(enumerable))
+			superDuperCounter = 0
 			for tutEntry in superList.bigList:
 				if tutEntry[4] == True and parentWanted == tutEntry[5]:
-					newTutCourseCode = courseCode.get('sel_subj')
-					newTutCourseCode += courseNumber
+					superDuperCounter +=1
+					newTutCourseCode = newCourseCode
+					newTutCourseCode = str(newTutCourseCode)
+					superDuperCounter = str(superDuperCounter)
+					newTutCourseCode += superDuperCounter
+					superDuperCounter = int(superDuperCounter)
 					newTutorial = Tutorial(newTutCourseCode,tutEntry[1],tutEntry[2],tutEntry[0])
 					tutorials.append(newTutorial)
-				newCourseCode = courseCode.get('sel_subj')
-				newCourseCode += courseNumber
 			newLecture = Lecture(newCourseCode, entry[1],entry[2],entry[0],tutorials)
 			crazyList.append(newLecture)
 	return crazyList
 
+
+
+def getLetterInCourseCode(parent):
+	if parent == 1:
+		return "A"
+	elif parent == 2:
+		return "B"
+	elif parent == 3:
+		return "C"
+	elif parent == 4:
+		return "D"
+	elif parent == 5:
+		return "E"
+	elif parent == 6:
+		return "F"	
 
 def getSchedule(allResults, someResults, rating):
 	for result in allResults:
@@ -188,27 +212,51 @@ def main(term,classes):
 	for item in crazyHugeList:
 		if len(item) == 0:
 			return []
-	print(crazyHugeList)
+	##print(crazyHugeList)
 	return (crazyHugeList)
 
-rankedResults = []
-restrictions = Restrictions("Morning", "3:30", ["MATH1002","ENST1020","COMP1406","COMP1805"])
-results = createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406","COMP1805"]))
-for result in results:
-	scheduleRanker(result,restrictions)
-	rankedResults.append(result.getRating())
+# rankedResults = []
+# restrictions = Restrictions("Morning", "3:30", ["MATH1002","ENST1020","COMP1406","COMP1805"])
+# results = createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406","COMP1805"]))
+# for result in results:
+# 	scheduleRanker(result,restrictions)
+# 	rankedResults.append(result.getRating())
 
 
-rankedResults.sort()
-rankedResults.reverse()
-bestFive = []
-if len(rankedResults) >= 5:
-	for i in range(5):
-		temp = bestFive
-		bestFive.append(getSchedule(results, temp, rankedResults[i]))
-else:
-	for i in range(len(rankedResults)):
-		temp = bestFive
-		bestFive.append(getSchedule(results, temp, rankedResults[i]))
+# rankedResults.sort()
+# rankedResults.reverse()
+# bestFive = []
+# if len(rankedResults) >= 5:
+# 	for i in range(5):
+# 		temp = bestFive
+# 		bestFive.append(getSchedule(results, temp, rankedResults[i]))
+# else:
+# 	for i in range(len(rankedResults)):
+# 		temp = bestFive
+# 		bestFive.append(getSchedule(results, temp, rankedResults[i]))
 
-print(bestFive)
+# print(bestFive)
+
+
+def superMain(term,classes,hardTime,timeOfDay):
+	rankedResults = []
+	restrictions = Restrictions(timeOfDay, hardTime, classes)
+	results = createSchedules(main(term,classes))
+	for result in results:
+		scheduleRanker(result,restrictions)
+		rankedResults.append(result.getRating())
+
+	rankedResults.sort()
+	bestFive = []
+	if len(rankedResults) >= 5:
+		for i in range(len(rankedResults) - 5, len(rankedResults)):
+			temp = bestFive
+			bestFive.append(getSchedule(results,temp, rankedResults[i]))
+	else:
+		for i in range(len(rankedResults)):
+			temp = bestFive
+			bestFive.append(getSchedule(results,temp, rankedResults[i]))
+
+	for sched in bestFive:
+		print(scheduleParser(sched))
+superMain("Winter",["COMP1406","COMP1805","ENST1020"],"3:30","Morning")

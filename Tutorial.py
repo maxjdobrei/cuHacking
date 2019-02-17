@@ -35,4 +35,4 @@ class Tutorial:
 		return self.days
 
 	def getCoursecode(self):
-		return self.courseCode
+		return self.courseCode[:8]

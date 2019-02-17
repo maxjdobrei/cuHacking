@@ -7,8 +7,6 @@ validSchedules = []
 
 
 def createSchedules(lecturesFound):
-	print("lectures founbd?")
-	print(lecturesFound)
 	tempSchedule = [0,0,0,0,0,0]
 
 	for lec in lecturesFound[0]:
@@ -92,8 +90,6 @@ def createSchedules(lecturesFound):
 						temp = Schedule(version)
 						validSchedules.append(temp)
 			continue
-	print("yuh")
-	print(validSchedules)
 	return validSchedules
 
 
@@ -302,34 +298,15 @@ def scheduleRanker(schedule, restrictions):
 
 	schedule.setRating(firstRank+secondRank+thirdRank)
 
-def tutorialParser(tutorial):
-	returnedList = []
-	name = {"Name":tutorial.courseCode}
-	location = {"Location":tutorial.location}
-	days = {"Days":tutorial.days}
-	startTime = {"Start Time":tutorial.startTime}
-	endTime = {"End Time":tutorial.endTime}
-	returnedList = [name,location,days,startTime,endTime]
-	return returnedList
 
 def lectureParser(lecture):
-	returnedList = []
-	name = {"Name":lecture.courseCode}
-	location = {"Location":lecture.location}
-	days = {"Days":lecture.days}
-	startTime = {"Start Time":lecture.startTime}
-	endTime = {"End Time":lecture.endTime}
-	tutorialsList = []
-	for tut in lecture.tutorials:
-		tutorialsList.append(tutorialParser(tut))
-	returnedList = [name,location,days,startTime,endTime,tutorialsList]
-	return returnedList
+	returnedDict = {"name":lecture.courseCode,"location":lecture.location,"days":lecture.days, "startTime":lecture.startTime,"endTime":lecture.endTime}
+	return returnedDict
 
 def scheduleParser(schedule):
-	returnedList = []
-	rating = {"Rating":schedule.rating}
 	lecturesList = []
 	for lecture in schedule.lectures:
 		lecturesList.append(lectureParser(lecture))
-	returnedList = [rating,lecturesList]
-	return returnedList
+	returnedDict = {"lectures":lecturesList}
+	return returnedDict
+
