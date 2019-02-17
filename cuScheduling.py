@@ -41,7 +41,7 @@ def createSchedules(lecturesFound):
 														for version in tutorialVersions:
 															temp = Schedule(version)
 															validSchedules.append(temp)
-													
+
 
 										except:
 											tempSchedule = removeNull(tempSchedule)
@@ -231,9 +231,9 @@ def scheduleRanker(schedule, restrictions):
 		classRange=(8,12)
 
 	elif (restrictions.getTimeofDay()=="Afternoon"):
-		classRange=(1,5)
+		classRange=(13,17)
 	elif (restrictions.getTimeofDay()=="Evening"):
-	 	classRange=(6,9)
+	 	classRange=(18,21)
 
 	breakTime=restrictions.getbreakTime()
 
@@ -265,7 +265,7 @@ def scheduleRanker(schedule, restrictions):
 		else:
 			differenceIntensity = 0
 			oldIntensity=0
-		
+
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
 
