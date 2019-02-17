@@ -38,3 +38,6 @@ def getTimes(self):
 
 def getTutorials(self):
 	return self.tutorials
+
+    def getDay(self):
+        return self.days
