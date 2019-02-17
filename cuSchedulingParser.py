@@ -189,7 +189,10 @@ def courseGetter(page,courseCode,courseNumber):
                     listOfAll.append(parent)
                     superList.addIt(listOfAll)
     #print (superList.bigList)
-    half = len(superList.bigList)//2
+    try:
+        half = len(superList.bigList)//2
+    except:
+        return []
     superList.bigList = superList.bigList[:half]
     return objectCreator(superList,courseCode,courseNumber)
 
@@ -242,5 +245,11 @@ def main(term,classes):
             number += lecture[i]
         temp = termSelector(url,term,subject,number)
         crazyHugeList.append(temp)
-    print (crazyHugeList)
+    for item in crazyHugeList:
+        if len(item) == 0:
+            return [-1]
+    return (crazyHugeList)
+
+
+
 main("Fall",["COMP1406","ENST1020","GEOM2007","COMP1805","MATH1104"])
