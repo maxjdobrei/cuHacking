@@ -31,7 +31,7 @@ def createSchedules(lecturesFound):
 												if scheduleValidator(tempSchedule):
 													temp = Schedule(tempSchedule)
 													validSchedules.append(temp)
-												
+
 
 
 										except:
@@ -41,9 +41,9 @@ def createSchedules(lecturesFound):
 											continue
 								except:
 									if scheduleValidator(tempSchedule):
-										
-										
-										
+
+
+
 										temp = Schedule(tempSchedule)
 										validSchedules.append(temp)
 									continue
@@ -62,7 +62,7 @@ def createSchedules(lecturesFound):
 				temp = Schedule(tempSchedule)
 				validSchedules.append(temp)
 			continue
-	
+
 def scheduleValidator(potentialSchedule):
 	times = []
 	for lecture in potentialSchedule:
@@ -80,13 +80,13 @@ def scheduleValidator(potentialSchedule):
 				elif temp[0][0] > time[0][0] and temp[0][0] < time[1][0]:
 					return False
 			for tutorial in lecture.getTutorials():
-				
 
-	return True	
+
+	return True
 
 
 def addTutorials(potentialSchedule):
-	
+
 	result = []
 
 	tutLengths = []
@@ -103,10 +103,10 @@ def addTutorials(potentialSchedule):
 	counter = 0
 
 	# for lecture in potentialSchedule:
-		
+
 	# 	if (tutLengths[counter] != -1):
 	# 		tutList = lecture.getTutorials()
-			
+
 	# 		for i in range(tutLengths[counter]):
 	# 			temp = i.getTime()
 	# 			for time in times:
@@ -121,7 +121,7 @@ def addTutorials(potentialSchedule):
 	# 				elif temp[0][0] > time[0][0] and temp[0][0] < time[1][0]:
 	# 					tutList.pop(i)
 	# 					pass
-		
+
 
 	for lecture in potentialSchedule:
 		if tutLengths[counter] != -1:
@@ -131,18 +131,25 @@ def addTutorials(potentialSchedule):
 				temp.append(tutList[i])
 				if scheduleValidator(temp):
 
-					
 
-		
+ def scheduleRanker(schedule):
+	 firstRank=0.45
+	 secondRank=0.20
+	 thirdRank=0.35
+	 classRange=tuple()
 
+	 if (Restrictions.getTimeOfDay()=="Morning"):
+		 classRange=(8,12)
 
+	 elif (Restrictions.getTimeofDay()=="Afternoon"):
+		 classRange=(1,5)
+	 elif (Restrictions.getTimeofDay()=="Evening"):
+	 	 classRange=(6,9)
+	for i in range(5):
+	currentClassesOnDay=schedule.getClassesOnDay(i)
+	difference=0.09/len(currentClassesOnDay)
 
-
-
-
-
-
-
-				
-
-
+	 for currentClass in currentClassesOnDay:
+		 temp=currentClass.getTimes()
+		 if temp[0][0] <classRange[0] and temp[1][0]>classRange[1]:
+			 firstRank=firstRank-difference
