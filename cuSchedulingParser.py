@@ -87,7 +87,7 @@ def courseGetter(page,courseCode,courseNumber):
                 #Calculate Time
                 times = times.split()
                 times.pop(0)
-                times.pop(1)
+                times.pop(0)
                 #Calculate building
                 building = building.split("</b>")
                 building.pop(0)
@@ -124,25 +124,33 @@ def courseGetter(page,courseCode,courseNumber):
 #[days,times,location,isLecture,isTutorial,parent]
 def objectCreator(superList,courseCode,courseNumber):
     #crazyList will store all of my Lecture Objects
-    crazyList = []
+	crazyList = []
     #print(len(superList.bigList))
     #print(superList.bigList)
-    for entry in superList.bigList:
-        #if it is a lecture.
-        if entry[3] == True:
-            newCourseCode = ''
-            tutorials = []
-            parentWanted = entry[5]
-            for tutEntry in superList.bigList:
-                if tutEntry[4] == True and parentWanted == tutEntry[5]:
-                    newTutorial = Tutorial(courseCode,tutEntry[1],tutEntry[2],tutEntry[0])
-                    tutorials.append(newTutorial)
-                newCourseCode = courseCode.get('sel_subj')
-                newCourseCode += courseNumber
-            newLecture = Lecture(newCourseCode, entry[1],entry[2],entry[0],tutorials)
-            crazyList.append(newLecture)
-    return crazyList
+	for entry in superList.bigList:
+		#if it is a lecture.
+		if entry[3] == True:
+			newCourseCode = ''
+			newTutCourseCode = ''
+			tutorials = []
+			parentWanted = entry[5]
+			for tutEntry in superList.bigList:
+				if tutEntry[4] == True and parentWanted == tutEntry[5]:
+					newTutCourseCode = courseCode.get('sel_subj')
+					newTutCourseCode += courseNumber
+					newTutorial = Tutorial(newTutCourseCode,tutEntry[1],tutEntry[2],tutEntry[0])
+					tutorials.append(newTutorial)
+				newCourseCode = courseCode.get('sel_subj')
+				newCourseCode += courseNumber
+			newLecture = Lecture(newCourseCode, entry[1],entry[2],entry[0],tutorials)
+			crazyList.append(newLecture)
+	return crazyList
 
+
+def getSchedule(allResults, rating):
+	for result in allResults:
+		if result.getRating() == rating:
+			return result
 
 def main(term,classes):
     #constants throughout the functions
@@ -172,10 +180,23 @@ def main(term,classes):
     return (crazyHugeList)
 
 rankedResults = []
-restrictions = Restrictions("Morning", "3:30", ["COMP1406","ENST1020"])
-results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
+restrictions = Restrictions("Morning", "3:30", ["COMP1805","MATH1102","COMP1406","ENST1020","PSYC1001"])
+results = createSchedules(main("Fall",["COMP1805","ENST1020","COMP1406","MATH1002","PSYC1001"]))
+print(len(results))
 for result in results:
-	rankedResults.append(scheduleRanker(result,restrictions).sort())
+	scheduleRanker(result,restrictions)
+	rankedResults.append(result.getRating())
 
+print(len(rankedResults))
+rankedResults.sort()
+print(len(rankedResults))
+bestFive = []
+if len(rankedResults) >= 5:
+	print("yuh")
+	for i in range(len(rankedResults) - 5, len(rankedResults)):
+		bestFive.append(getSchedule(results, rankedResults[i]))
+else:
+	for i in range(len(rankedResults)):
+		bestFive.append(getSchedule(results, rankedResults[i]))	
 
-print(rankedResults)
+print(bestFive)

@@ -36,8 +36,10 @@ def createSchedules(lecturesFound):
 													temp = tempSchedule
 													tutorialVersions = addTutorials(temp)
 													if len(tutorialVersions) != 0:
-														temp = Schedule(tempSchedule)
-														validSchedules.append(temp)
+														for version in tutorialVersions:
+															temp = Schedule(version)
+															validSchedules.append(temp)
+													
 
 										except:
 											tempSchedule = removeNull(tempSchedule)
@@ -45,8 +47,9 @@ def createSchedules(lecturesFound):
 												temp = tempSchedule
 												tutorialVersions = addTutorials(temp)
 												if len(tutorialVersions) != 0:
-													temp = Schedule(tempSchedule)
-													validSchedules.append(temp)
+													for version in tutorialVersions:
+														temp = Schedule(version)
+														validSchedules.append(temp)
 											continue
 								except:
 									tempSchedule = removeNull(tempSchedule)
@@ -54,8 +57,9 @@ def createSchedules(lecturesFound):
 										temp = tempSchedule
 										tutorialVersions = addTutorials(temp)
 										if len(tutorialVersions) != 0:
-											temp = Schedule(tempSchedule)
-											validSchedules.append(temp)
+											for version in tutorialVersions:
+												temp = Schedule(version)
+												validSchedules.append(temp)
 									continue
 						except:
 							tempSchedule = removeNull(tempSchedule)
@@ -63,16 +67,18 @@ def createSchedules(lecturesFound):
 								temp = tempSchedule
 								tutorialVersions = addTutorials(temp)
 								if len(tutorialVersions) != 0:
-									temp = Schedule(tempSchedule)
-									validSchedules.append(temp)
+									for version in tutorialVersions:
+										temp = Schedule(version)
+										validSchedules.append(temp)
 							continue
 				except:
 					tempSchedule = removeNull(tempSchedule)
 					if scheduleValidator(tempSchedule):
 						tutorialVersions = addTutorials(tempSchedule)
 						if len(tutorialVersions) != 0:
-							temp = Schedule(tempSchedule)
-							validSchedules.append(temp)
+							for version in tutorialVersions:
+								temp = Schedule(version)
+								validSchedules.append(temp)
 					continue
 		except:
 			tempSchedule = removeNull(tempSchedule)
@@ -80,9 +86,11 @@ def createSchedules(lecturesFound):
 				temp = tempSchedule
 				tutorialVersions = addTutorials(temp)
 				if len(tutorialVersions) != 0:
-					temp = Schedule(tempSchedule)
-					validSchedules.append(temp)
+					for version in tutorialVersions:
+						temp = Schedule(version)
+						validSchedules.append(temp)
 			continue
+	print("yuh")
 	return validSchedules
 
 
@@ -165,17 +173,14 @@ def addTutorials(potentialSchedule):
 		if tutLengths[i] != -1:
 			lecturesWithTutorials.append(potentialSchedule[i])
 
-	print("Length of potsched in first add")
-	print(len(potentialSchedule))
 	return addTutorialsHelper(potentialSchedule, lecturesWithTutorials)
 
 
 
 def addTutorialsHelper(potentialSchedule, lectures):
 
-	# lengthOfSchedule = len(potentialSchedule)
-	print("Length of potsched in first add")
-	print(len(potentialSchedule))
+
+
 	result = []
 	indexCounter = []
 	for i in range(len(lectures)):
@@ -209,8 +214,6 @@ def addTutorialsHelper(potentialSchedule, lectures):
 		if holder == indexCounter[0]:
 			tutorialsToCheck = False
 
-	print("The tutorials being added: ")
-	print(result)
 	return result
 
 def scheduleRanker(schedule, restrictions):
@@ -245,20 +248,28 @@ def scheduleRanker(schedule, restrictions):
 		classMetPref = len(currentClassesOnDay) - classNotMetPref
 		if classNotMetPref == 0:
 			classNotMetPref = 1
-		difference = 0.09 / (classMetPref / classNotMetPref)
+		if classMetPref == 0:
+			difference = 0.09
+		else:
+			difference = 0.09 / (classMetPref / classNotMetPref)
 		firstRank -= difference
 
 	for i in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(i)
-		differenceIntensity=(0.07/len(currentClassesOnDay))*2
-		oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0].getCourseCode())
+		if not (len(currentClassesOnDay) == 0):
+			differenceIntensity=(0.07/len(currentClassesOnDay))*2
+			oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0].getCoursecode())
+		else:
+			differenceIntensity = 0
+			oldIntensity=0
+		
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
 
 
 			if breakTime=="":
 				pass
-			elif temp[0][0]> breakTime[0][0] or temp[1][0]<breakTime[1][0]:
+			elif temp[0][0]> int(breakTime[0][0]) or temp[1][0]< int(breakTime[1][0]):
 				secondRank=secondRank-0.04
 			try:
 				throwAway=currentClass.getTutorials()
@@ -268,7 +279,5 @@ def scheduleRanker(schedule, restrictions):
 				oldIntensity=restrictions.getIntensity().index(currentClass)
 			except:
 				pass
-
-
 
 	schedule.setRating(firstRank+secondRank+thirdRank)
