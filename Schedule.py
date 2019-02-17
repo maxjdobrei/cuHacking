@@ -12,7 +12,9 @@ class Schedule:
         self.rating=rating
 
     def getClassesOnDay(self,whichDay):
-        dayClasses=[]
+        
+
+		dayClasses=[]
         for currentClass in self.lectures:
             if whichDay in currentClass.getDay():
                 dayClasses.append(currentClass)
