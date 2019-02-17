@@ -284,10 +284,12 @@ def scheduleRanker(schedule, restrictions):
 
 def lectureParser(lecture):
 	returnedDict = {"name":lecture.courseCode,"location":lecture.location,"days":lecture.days, "startTime":lecture.startTime,"endTime":lecture.endTime}
-	
+	return returnedDict
+
 def scheduleParser(schedule):
 	lecturesList = []
 	for lecture in schedule.lectures:
 		lecturesList.append(lectureParser(lecture))
-	returnedDict = {"Rating":schedule.rating, "Lectures":lecturesList}
+	returnedDict = {"lectures":lecturesList}
 	return returnedDict
+

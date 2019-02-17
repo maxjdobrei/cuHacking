@@ -208,21 +208,23 @@ def main(term,classes):
 	##print(crazyHugeList)
 	return (crazyHugeList)
 
-rankedResults = []
-restrictions = Restrictions("Morning", "3:30", ["MATH1002","COMP1406","ENST1020"])
-results = createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406"]))
-for result in results:
-	scheduleRanker(result,restrictions)
-	rankedResults.append(result.getRating())
+def superMain(term,classes,hardTime,timeOfDay):
+	rankedResults = []
+	restrictions = Restrictions(timeOfDay, hardTime, classes)
+	results = createSchedules(main(term,classes))
+	for result in results:
+		scheduleRanker(result,restrictions)
+		rankedResults.append(result.getRating())
 
-rankedResults.sort()
-bestFive = []
-if len(rankedResults) >= 5:
-	for i in range(len(rankedResults) - 5, len(rankedResults)):
-		bestFive.append(getSchedule(results, rankedResults[i]))
-else:
-	for i in range(len(rankedResults)):
-		bestFive.append(getSchedule(results, rankedResults[i]))
+	rankedResults.sort()
+	bestFive = []
+	if len(rankedResults) >= 5:
+		for i in range(len(rankedResults) - 5, len(rankedResults)):
+			bestFive.append(getSchedule(results, rankedResults[i]))
+	else:
+		for i in range(len(rankedResults)):
+			bestFive.append(getSchedule(results, rankedResults[i]))
 
-for sched in bestFive:
-	print(scheduleParser(sched))
+	for sched in bestFive:
+		print(scheduleParser(sched))
+superMain("Winter",["COMP1406","COMP1805","ENST1020"],"3:30","Morning")
