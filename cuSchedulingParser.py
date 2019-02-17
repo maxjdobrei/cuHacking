@@ -178,10 +178,14 @@ def	getLetterInCourseCode(parent):
 	elif	parent	==	6:
 		return	"F"
 
-def	getSchedule(allResults,	rating):
+def	getSchedule(allResults,someResults,	rating):
 	for	result	in	allResults:
 		if	result.getRating()	==	rating:
-			return	result
+			for	r	in	someResults:
+				if	result	==	r:
+					pass
+				else:
+					return	result
 
 def	main(term,classes):
 	#constants	throughout	the	functions
@@ -212,9 +216,6 @@ def	main(term,classes):
 	return	(crazyHugeList)
 
 def	superMain(term,classes,hardTime,timeOfDay):
-	bestFive = []
-	if term == []:
-		return []
 	rankedResults	=	[]
 	listoBisto	=	[]
 	if timeOfDay=="":
@@ -228,23 +229,22 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		rankedResults.append(result.getRating())
 	rankedResults.sort()
 	rankedResults.reverse()
-	return scheduleParser(getSchedule(results, rankedResults[0] ))
-
-	# 	toBeCopied = []
-	# 	bestFive	=	[]
-	# 	if	len(rankedResults)	>=	10:
-	# 		for	i	in	range(10):
-	# 			temp	=	bestFive
-	# 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-	# 			toBeCopied.append(bestFive[0])
-	# 			toBeCopied.append(bestFive[2])
-	# 			toBeCopied.append(bestFive[4])
-	# 			toBeCopied.append(bestFive[6])
-	# 			toBeCopied.append(bestFive[8])
-	# 	else:
-	# 		for	i	in	range(len(rankedResults)):
-	# 			temp	=	bestFive[:]
-	# 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-	# 	for	sched	in	bestFive:
-	# 		listoBisto.append(scheduleParser(sched))
-	# return	listoBisto
+	
+	toBeCopied = []
+	bestFive	=	[]
+	if	len(rankedResults)	>=	10:
+		for	i	in	range(10):
+			temp	=	bestFive
+			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
+			toBeCopied.append(bestFive[0])
+			toBeCopied.append(bestFive[2])
+			toBeCopied.append(bestFive[4])
+			toBeCopied.append(bestFive[6])
+			toBeCopied.append(bestFive[8])
+	else:
+		for	i	in	range(len(rankedResults)):
+			temp	=	bestFive[:]
+			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
+	for	sched	in	bestFive:
+		listoBisto.append(scheduleParser(sched))
+	return	listoBisto

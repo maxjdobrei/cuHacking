@@ -197,7 +197,6 @@ def addTutorialsHelper(potentialSchedule, lectures):
 	listOfSchedules = []
 	holder = 0
 	counter = 0;
-	endResult = -1
 
 	while tutorialsToCheck:
 		foundSomething = False
