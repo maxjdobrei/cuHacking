@@ -236,19 +236,22 @@ def scheduleRanker(schedule, restrictions):
 	for j in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(j)
 		for classes in currentClassesOnDay:
+			temp=classes.getTimes()
 			if restrictions.getTimeofDay()=="":
 				break
 
 			elif temp[0][0] <classRange[0] or temp[1][0]>classRange[1]:
 				classNotMetPref += 1
 		classMetPref = len(currentClassesOnDay) - classNotMetPref
+		if classNotMetPref == 0:
+			classNotMetPref = 1
 		difference = 0.09 / (classMetPref / classNotMetPref)
 		firstRank -= difference
 
 	for i in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(i)
 		differenceIntensity=(0.07/len(currentClassesOnDay))*2
-		oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0])
+		oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0].getCourseCode())
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
 

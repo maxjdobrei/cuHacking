@@ -139,7 +139,7 @@ def objectCreator(superList,courseCode,courseNumber):
                     tutorials.append(newTutorial)
                 newCourseCode = courseCode.get('sel_subj')
                 newCourseCode += courseNumber
-            newLecture = Lecture(courseCode, entry[1],entry[2],entry[0],tutorials)
+            newLecture = Lecture(newCourseCode, entry[1],entry[2],entry[0],tutorials)
             crazyList.append(newLecture)
     return crazyList
 
@@ -170,8 +170,11 @@ def main(term,classes):
             return []
     return (crazyHugeList)
 
+rankedResults = []
 restrictions = Restrictions("Morning", "3:30", ["COMP1406","ENST1020"])
 results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
-rankedResults = scheduleRanker(results,restrictions).sort()
+for result in results:
+	rankedResults.append(scheduleRanker(result,restrictions).sort())
+
 
 print(rankedResults)
