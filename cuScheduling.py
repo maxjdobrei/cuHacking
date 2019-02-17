@@ -82,9 +82,13 @@ def createSchedules(lecturesFound):
 
 
 def removeNull(potentialSchedule):
+	indexesToRemove = []
 	for i in range(len(potentialSchedule)):
 		if potentialSchedule[i] == 0:
-			potentialSchedule.pop(i)
+			indexesToRemove.append(i)
+	for index in indexesToRemove:
+		potentialSchedule.remove(0)
+	
 	return potentialSchedule
 
 
@@ -223,7 +227,7 @@ def scheduleRanker(schedule, restrictions):
 		currentClassesOnDay=schedule.getClassesOnDay(i)
 		difference=0.09/len(currentClassesOnDay)
 		differenceIntensity=(0.07/len(currentClassesOnDay))*2
-		oldIntensity=restrictions.getIntensity().index(currentClassOnDay[0])
+		oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0])
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
 			if temp[0][0] <classRange[0] or temp[1][0]>classRange[1]:

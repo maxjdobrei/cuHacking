@@ -216,7 +216,7 @@ def objectCreator(superList,courseCode,courseNumber):
             parentWanted = entry[5]
             for tutEntry in superList.bigList:
                 if tutEntry[4] == True and parentWanted == tutEntry[5]:
-                    newTutorial = Tutorial(courseCode,entry[1],entry[2],entry[0])
+                    newTutorial = Tutorial(courseCode,tutEntry[1],tutEntry[2],tutEntry[0])
                     tutorials.append(newTutorial)
                 newCourseCode = courseCode.get('sel_subj')
                 newCourseCode += courseNumber
@@ -253,5 +253,5 @@ def main(term,classes):
     return (crazyHugeList)
 
 
-results = createSchedules(main("Fall",["COMP1406","ENST1020","GEOM2007","COMP1805","MATH1104"]))
+results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
 print(results)
