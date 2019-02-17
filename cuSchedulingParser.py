@@ -5,7 +5,7 @@ from	cuScheduling	import	*
 from	Lecture	import	*
 from	Tutorial	import	*
 from	Restrictions	import	*
-	
+
 class	MegaList:
 
 	def	__init__(self):
@@ -176,7 +176,7 @@ def	getLetterInCourseCode(parent):
 	elif	parent	==	5:
 		return	"E"
 	elif	parent	==	6:
-		return	"F"	
+		return	"F"
 
 def	getSchedule(allResults,	rating):
 	for	result	in	allResults:
@@ -218,6 +218,10 @@ def	main(term,classes):
 def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
+	if timeOfDay=="" or timeOfDay==null:
+		timeofDay="23:00"
+	if hardTime=="" or hardTime==null:
+		hardTime="Afternoon"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
 	for	result	in	results:
