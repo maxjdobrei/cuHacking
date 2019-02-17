@@ -172,7 +172,7 @@ def addTutorials(potentialSchedule):
 
 
 def addTutorialsHelper(potentialSchedule, lectures):
-	
+
 	# lengthOfSchedule = len(potentialSchedule)
 	print("Length of potsched in first add")
 	print(len(potentialSchedule))
@@ -189,16 +189,16 @@ def addTutorialsHelper(potentialSchedule, lectures):
 		listOfSchedules.clear()
 		listOfSchedules.append(potentialSchedule)
 		counter = 0
-		holder = indexCounter[0]	
+		holder = indexCounter[0]
 
 		for i in range(len(lectures)):
 			for j in range(indexCounter[i], len(lectures[i].getTutorials())):
 
 				if overlapChecker(listOfSchedules[counter], lectures[i].getTutorials()[j]):
-					indexCounter[i] = j + 1 
+					indexCounter[i] = j + 1
 					temp = listOfSchedules[counter][:]            ###################################################################################################
 					temp.append(lectures[i].getTutorials()[j])
-					
+
 					if len(temp) == (len(potentialSchedule) + len(lectures)):
 						result.append(temp)
 
@@ -233,7 +233,7 @@ def scheduleRanker(schedule, restrictions):
 
 	classMetPref = 0
 	classNotMetPref = 0
-  	for j in range(5):
+	for j in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(j)
 		for classes in currentClassesOnDay:
 			if restrictions.getTimeofDay()=="":
