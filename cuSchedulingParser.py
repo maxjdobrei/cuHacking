@@ -259,4 +259,3 @@ def	superMain(term,classes,hardTime,timeOfDay):
 				for	sched	in	bestFive:
 					listoBisto.append(scheduleParser(sched))
 	return	listoBisto
-	
