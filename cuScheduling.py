@@ -202,7 +202,7 @@ def addTutorialsHelper(potentialSchedule, lectures):
 
 		for i in range(len(lectures)):
 			for j in range(indexCounter[i], len(lectures[i].getTutorials())):
-				
+
 				if overlapChecker(listOfSchedules[counter], lectures[i].getTutorials()[j]):
 					foundSomething = True
 					temp = listOfSchedules[counter][:]            ###################################################################################################
@@ -285,7 +285,7 @@ def scheduleRanker(schedule, restrictions):
 
 			if breakTime=="":
 				pass
-			elif temp[0][0]> int(breakTime[0][0]) or temp[1][0]< int(breakTime[1][0]):
+			elif temp[0][0]> int(breakTime[0][0]) and temp[1][0]< int(breakTime[1][0]):
 				secondRank=secondRank-0.04
 			try:
 				throwAway=currentClass.getTutorials()
