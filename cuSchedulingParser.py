@@ -44,6 +44,7 @@ def termSelector(url,desiredTerm,courseCode,courseNumber):
 	#now browser is on the page we were looking for, so it is time to scrape!
 	#page is now a soup object
 	page = browser.get_current_page()
+	browser.close()
 	return courseGetter(page,courseCode,courseNumber)
 
 
@@ -153,10 +154,14 @@ def objectCreator(superList,courseCode,courseNumber):
 	return crazyList
 
 
-def getSchedule(allResults, rating):
+def getSchedule(allResults, someResults, rating):
 	for result in allResults:
 		if result.getRating() == rating:
-			return result
+			for r in someResults:
+				if result == r:
+					pass
+				else:
+					return result
 
 def main(term,classes):
 	#constants throughout the functions
@@ -187,22 +192,23 @@ def main(term,classes):
 	return (crazyHugeList)
 
 rankedResults = []
-restrictions = Restrictions("Morning", "3:30", ["MATH1002","COMP1406","ENST1020"])
-results = createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406"]))
-print(len(results))
+restrictions = Restrictions("Morning", "3:30", ["MATH1002","ENST1020","COMP1406","COMP1805"])
+results = createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406","COMP1805"]))
 for result in results:
 	scheduleRanker(result,restrictions)
 	rankedResults.append(result.getRating())
 
-print(len(rankedResults))
+
 rankedResults.sort()
-print(len(rankedResults))
+rankedResults.reverse()
 bestFive = []
 if len(rankedResults) >= 5:
-	for i in range(len(rankedResults) - 5, len(rankedResults)):
-		bestFive.append(getSchedule(results, rankedResults[i]))
+	for i in range(5):
+		temp = bestFive
+		bestFive.append(getSchedule(results, temp, rankedResults[i]))
 else:
 	for i in range(len(rankedResults)):
-		bestFive.append(getSchedule(results, rankedResults[i]))
+		temp = bestFive
+		bestFive.append(getSchedule(results, temp, rankedResults[i]))
 
 print(bestFive)
