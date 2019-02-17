@@ -281,15 +281,38 @@ def scheduleRanker(schedule, restrictions):
 
 	schedule.setRating(firstRank+secondRank+thirdRank)
 
+def dayTo(day):
+	if day == 0:
+		return "Monday"
+	elif day == 1:
+		return "Tuesday"
+	elif day == 2:
+		return "Wednesday"
+	elif day == 3:
+		return "Thursday"
+	elif day == 4:
+		return "Friday"
 
-def lectureParser(lecture):
-	returnedDict = {"name":lecture.courseCode,"location":lecture.location,"days":lecture.days, "startTime":lecture.startTime,"endTime":lecture.endTime}
+
+def lectureParser(lecture,i):
+	listOfDays = lecture.days
+	newListOfDays = []
+	for day in listOfDays:
+		newListOfDays.append(dayTo(day))
+	returnedDict = {"name":lecture.courseCode,"location":lecture.location,"days":newListOfDays, "startTime":lecture.startTime,"endTime":lecture.endTime,"color":i}
 	return returnedDict
 
 def scheduleParser(schedule):
 	lecturesList = []
+	i=0
 	for lecture in schedule.lectures:
-		lecturesList.append(lectureParser(lecture))
-	returnedDict = {"lectures":lecturesList}
-	return returnedDict
-
+		if len(lecture.courseCode) == 9:
+			i +=1
+			lecturesList.append(lectureParser(lecture,i))
+	newLecturesList = lecturesList[:]
+	for tutorial in schedule.lectures:
+		if len(tutorial.courseCode) == 10:
+			for lecture in newLecturesList:
+				if lecture['name'] in tutorial.courseCode:
+					lecturesList.append(lectureParser(tutorial,lecture['color']))
+	return lecturesList
