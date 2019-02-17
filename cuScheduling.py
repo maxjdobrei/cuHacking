@@ -127,11 +127,8 @@ def overlapCheckerTwo(potentialSchedule):
 
 def addTutorials(potentialSchedule):
 	tutLengths = []
-	# times = []
-
 
 	for lecture in potentialSchedule:
-		# times.append(lecture.getLectureTimes())
 		if len(lecture.getTutorials) == 0:
 			tutLengths.append(-1)
 		else:
