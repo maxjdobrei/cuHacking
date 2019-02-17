@@ -33,7 +33,8 @@ def createSchedules(lecturesFound):
 												tempSchedule.pop(5)
 												tempSchedule.insert(5, lectureFinal)
 												if scheduleValidator(tempSchedule):
-													tutorialVersions = addTutorials(tempSchedule)
+													temp = tempSchedule
+													tutorialVersions = addTutorials(temp)
 													if len(tutorialVersions) != 0:
 														temp = Schedule(tempSchedule)
 														validSchedules.append(temp)
@@ -41,7 +42,8 @@ def createSchedules(lecturesFound):
 										except:
 											tempSchedule = removeNull(tempSchedule)
 											if scheduleValidator(tempSchedule):
-												tutorialVersions = addTutorials(tempSchedule)
+												temp = tempSchedule
+												tutorialVersions = addTutorials(temp)
 												if len(tutorialVersions) != 0:
 													temp = Schedule(tempSchedule)
 													validSchedules.append(temp)
@@ -49,7 +51,8 @@ def createSchedules(lecturesFound):
 								except:
 									tempSchedule = removeNull(tempSchedule)
 									if scheduleValidator(tempSchedule):
-										tutorialVersions = addTutorials(tempSchedule)
+										temp = tempSchedule
+										tutorialVersions = addTutorials(temp)
 										if len(tutorialVersions) != 0:
 											temp = Schedule(tempSchedule)
 											validSchedules.append(temp)
@@ -57,7 +60,8 @@ def createSchedules(lecturesFound):
 						except:
 							tempSchedule = removeNull(tempSchedule)
 							if scheduleValidator(tempSchedule):
-								tutorialVersions = addTutorials(tempSchedule)
+								temp = tempSchedule
+								tutorialVersions = addTutorials(temp)
 								if len(tutorialVersions) != 0:
 									temp = Schedule(tempSchedule)
 									validSchedules.append(temp)
@@ -73,7 +77,8 @@ def createSchedules(lecturesFound):
 		except:
 			tempSchedule = removeNull(tempSchedule)
 			if scheduleValidator(tempSchedule):
-				tutorialVersions = addTutorials(tempSchedule)
+				temp = tempSchedule
+				tutorialVersions = addTutorials(temp)
 				if len(tutorialVersions) != 0:
 					temp = Schedule(tempSchedule)
 					validSchedules.append(temp)
@@ -160,50 +165,53 @@ def addTutorials(potentialSchedule):
 		if tutLengths[i] != -1:
 			lecturesWithTutorials.append(potentialSchedule[i])
 
+	print("Length of potsched in first add")
+	print(len(potentialSchedule))
 	return addTutorialsHelper(potentialSchedule, lecturesWithTutorials)
 
 
 
 def addTutorialsHelper(potentialSchedule, lectures):
+	
+	# lengthOfSchedule = len(potentialSchedule)
+	print("Length of potsched in first add")
+	print(len(potentialSchedule))
 	result = []
 	indexCounter = []
 	for i in range(len(lectures)):
 		indexCounter.append(0)
 
 	tutorialsToCheck = True
-	potentialSchedules = []
+	listOfSchedules = []
 	counter = 0;
 
 	while tutorialsToCheck:
-		potentialSchedules.clear()
-		potentialSchedules.append(potentialSchedule)
+		listOfSchedules.clear()
+		listOfSchedules.append(potentialSchedule)
 		counter = 0
-		holder = indexCounter[0]
+		holder = indexCounter[0]	
 
 		for i in range(len(lectures)):
 			for j in range(indexCounter[i], len(lectures[i].getTutorials())):
 
-				if overlapChecker(potentialSchedules[counter], lectures[i].getTutorials()[j]):
-					indexCounter[i] = j + 1
-					temp = potentialSchedules[counter]
+				if overlapChecker(listOfSchedules[counter], lectures[i].getTutorials()[j]):
+					indexCounter[i] = j + 1 
+					temp = listOfSchedules[counter][:]            ###################################################################################################
 					temp.append(lectures[i].getTutorials()[j])
+					
 					if len(temp) == (len(potentialSchedule) + len(lectures)):
 						result.append(temp)
 
 					else:
-						potentialSchedules.append(temp)
+						listOfSchedules.append(temp)
 						counter += 1
 						break
 		if holder == indexCounter[0]:
 			tutorialsToCheck = False
 
+	print("The tutorials being added: ")
+	print(result)
 	return result
-
-
-
-
-
-
 
 def scheduleRanker(schedule, restrictions):
 	firstRank=0.45
