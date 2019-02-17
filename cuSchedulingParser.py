@@ -238,7 +238,7 @@ def	superMain(term,classes,hardTime,timeOfDay):
 				toBeCopied.append(bestFive[8])
 		else:
 			for	i	in	range(len(rankedResults)):
-				temp	=	bestFive
+				temp	=	bestFive[:]
 				bestFive.append(getSchedule(results,temp,	rankedResults[i]))
 		for	sched	in	bestFive:
 			listoBisto.append(scheduleParser(sched))

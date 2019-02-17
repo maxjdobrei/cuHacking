@@ -122,7 +122,7 @@
                     <ul>
                         {% for course in schedule %}
 
-                        {% if day in course.day %}
+                        {% if day in course.days %}
                         <li class="single-event" data-start={{ course.startTime[0]|string + ":" + course.startTime[1]|string }} 
                             data-end={{ course.endTime[0]|string + ":" + course.endTime[1]|string }} 
                             data-content={{ course.location }}
