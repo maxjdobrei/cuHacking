@@ -7,6 +7,8 @@ validSchedules = []
 
 
 def createSchedules(lecturesFound):
+	print("lectures founbd?")
+	print(lecturesFound)
 	tempSchedule = [0,0,0,0,0,0]
 
 	for lec in lecturesFound[0]:
@@ -91,6 +93,7 @@ def createSchedules(lecturesFound):
 						validSchedules.append(temp)
 			continue
 	print("yuh")
+	print(validSchedules)
 	return validSchedules
 
 
@@ -145,15 +148,15 @@ def overlapCheckerTwo(potentialSchedule):
 
 			for time in times:
 				for timeTwo in times:
-
-					if time[0][0] == timeTwo[1][0]:
-						if time[0][1] <= timeTwo[1][1]:
+					if time!=timeTwo:
+						if time[0][0] == timeTwo[1][0]:
+							if time[0][1] <= timeTwo[1][1]:
+								return False
+						elif time[1][0] == timeTwo[0][0]:
+							if time[1][1] <= timeTwo[0][1]:
+								return False
+						elif time[0][0] > timeTwo[0][0] and time[0][0] < timeTwo[1][0]:
 							return False
-					elif time[1][0] == timeTwo[0][0]:
-						if time[1][1] <= timeTwo[0][1]:
-							return False
-					elif time[0][0] > timeTwo[0][0] and time[0][0] < timeTwo[1][0]:
-						return False
 	return True
 
 
