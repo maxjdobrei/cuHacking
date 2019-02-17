@@ -149,8 +149,10 @@ def overlapCheckerTwo(potentialSchedule):
 		for lect in dayClasses:
 			timez.append(lect.getTimes())
 
-			for time in timez:
-				for timeTwo in timez:
+			for i in range(len(timez)):
+				for j in range(i, len(timez)):
+					time = timez[i]
+					timeTwo = timez[j]
 					if time!=timeTwo:
 						if time[0][0] == timeTwo[1][0]:
 							if time[0][1] <= timeTwo[1][1]:
@@ -160,6 +162,8 @@ def overlapCheckerTwo(potentialSchedule):
 								return False
 						elif time[0][0] > timeTwo[0][0] and time[0][0] < timeTwo[1][0]:
 							return False
+					else:
+						return False
 	return True
 
 
