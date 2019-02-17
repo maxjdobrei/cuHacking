@@ -171,8 +171,11 @@ def main(term,classes):
             return []
     return (crazyHugeList)
 
+rankedResults = []
 restrictions = Restrictions("Morning", "3:30", ["COMP1406","ENST1020"])
 results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
-rankedResults = scheduleRanker(results,restrictions).sort()
+for result in results:
+	rankedResults.append(scheduleRanker(result,restrictions).sort())
+
 
 print(rankedResults)
