@@ -30,6 +30,9 @@ def convertDay(self,day):
         elif days == "Fri":
             dayNum.append(4)
     return dayNum
-    
+
 def getTimes(self):
 	return (self.startTime, self.endTime)
+
+    def getDay(self):
+        return self.days

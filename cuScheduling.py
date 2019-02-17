@@ -183,7 +183,24 @@ def addTutorialsHelper(potentialSchedule, lectures):
 
 
 
+ def scheduleRanker(schedule):
+	 firstRank=0.45
+	 secondRank=0.20
+	 thirdRank=0.35
+	 classRange=tuple()
 
-				
+	 if (Restrictions.getTimeOfDay()=="Morning"):
+		 classRange=(8,12)
 
+	 elif (Restrictions.getTimeofDay()=="Afternoon"):
+		 classRange=(1,5)
+	 elif (Restrictions.getTimeofDay()=="Evening"):
+	 	 classRange=(6,9)
+	for i in range(5):
+	currentClassesOnDay=schedule.getClassesOnDay(i)
+	difference=0.09/len(currentClassesOnDay)
 
+	 for currentClass in currentClassesOnDay:
+		 temp=currentClass.getTimes()
+		 if temp[0][0] <classRange[0] and temp[1][0]>classRange[1]:
+			 firstRank=firstRank-difference
