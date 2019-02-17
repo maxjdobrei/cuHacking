@@ -1,22 +1,10 @@
 from flask import Flask, render_template, request, session
-from cuSchedulingParser import *
+from cuSchedulingParser import superMain
 
 session = {}
 session['scheduleIndex'] = 0
-session['schedules'] = [[
-        {
-            'days': ["Tuesday","Thursday"],
-            'startTime': (8,35),
-            'endtime': (9,55),
-            'name': 'COMP1406',
-            'location': "Azreili Theater"
-
-        }
-        ],
-        [
-
-    ]]
 session['schedules'] = [[]]
+schedules = [[]]
 
 app = Flask(__name__)
 
@@ -25,6 +13,7 @@ def hello():
 
     days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     courses = []
+    schedules = [[]]
 
     if request.method == 'POST':
         if request.form['form'] == 'generate':
@@ -43,7 +32,9 @@ def hello():
                 if request.form['course'+str(i)] != "":
                     courses.append(request.form['course'+str(i)])
 
-            session['schedules'] = superMain(term,courses,myBreak,timePreference)
+
+            #session['schedules'] = superMain(term,courses,myBreak,timePreference)
+            schedules = superMain(term,courses,myBreak,timePreference)
             session['scheduleIndex'] = 0
 
         if request.form['form'] == 'previous':
@@ -56,7 +47,7 @@ def hello():
             if session['scheduleIndex'] > len(session['schedules'])-1:
                 session['scheduleIndex'] = 0
     
-    return render_template("main.html",days = days, schedule = session['schedules'][session['scheduleIndex']])
+    return render_template("main.html",days = days, schedule = schedules)
 
 if __name__ == '__main__':
     app.run(debug=True)
