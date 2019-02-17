@@ -33,3 +33,6 @@ class Tutorial:
 
 	def getDay(self):
 		return self.days
+
+	def getCoursecode(self):
+		return self.courseCode
