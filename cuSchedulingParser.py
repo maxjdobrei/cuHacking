@@ -13,7 +13,7 @@ class MegaList:
 
     def addIt(self,list):
         self.bigList.append(list)
-    
+
     def printIt(self):
         print(self.bigList)
 
@@ -46,8 +46,8 @@ def termSelector(url,desiredTerm,courseCode,courseNumber):
     page = browser.get_current_page()
     return courseGetter(page,courseCode,courseNumber)
 
- 
-    
+
+
 def courseGetter(page,courseCode,courseNumber):
     holderCount = -1
     #finds all tables in soup object
@@ -140,7 +140,7 @@ def objectCreator(superList,courseCode,courseNumber):
                 newCourseCode = courseCode.get('sel_subj')
                 newCourseCode += courseNumber
             newLecture = Lecture(courseCode, entry[1],entry[2],entry[0],tutorials)
-            crazyList.append(newLecture)   
+            crazyList.append(newLecture)
     return crazyList
 
 def main(term,classes):
@@ -170,6 +170,8 @@ def main(term,classes):
             return []
     return (crazyHugeList)
 
-
+restrictions = Restrictions("Morning", "3:30", ["COMP1406","ENST1020"])
 results = createSchedules(main("Fall",["COMP1406","ENST1020"]))
-print(results)
+rankedResults = scheduleRanker(results,restrictions).sort()
+
+print(rankedResults)
