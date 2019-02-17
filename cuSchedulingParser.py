@@ -227,6 +227,9 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		hardTime="1:00"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
+	if len(results) == 0:
+		return [[]]
+	
 	for	result	in	results:
 		scheduleRanker(result,restrictions)
 		rankedResults.append(result.getRating())
@@ -259,5 +262,5 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	results.clear()
 	return	listoBisto
 
-(superMain("Winter",["COMP1406","COMP1805"],"18:00", "Morning"))
-(superMain("Winter",["ENST1020","MATH1007"],"18:00", "Morning"))
+print(superMain("Winter",["COMP1406","COMP1805"],"18:00", "Morning"))
+print(superMain("Winter",["ENST1020","MATH1007"],"18:00", "Morning"))
