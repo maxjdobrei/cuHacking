@@ -202,7 +202,8 @@ def scheduleRanker(schedule, restrictions):
 	for i in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(i)
 		difference=0.09/len(currentClassesOnDay)
-
+		differenceIntensity=(0.07/len(currentClassesOnDay))*2
+		oldIntensity=restrictions.getIntensity().index(currentClassOnDay[0])
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
 			if temp[0][0] <classRange[0] or temp[1][0]>classRange[1]:
@@ -210,5 +211,15 @@ def scheduleRanker(schedule, restrictions):
 
 			if temp[0][0]> breakTime[0][0] or temp[1][0]<breakTime[1][0]:
 				secondRank=secondRank-0.04
+			try:
+				throwAway=currentClass.getTutorials()
+
+				if oldIntensity==restrictions.getIntensity().index(currentClass)-1 or oldIntensity==restrictions.getIntensity().index(currentClass)+1:
+					thirdRank=thirdRank-differenceIntensity
+				oldIntensity=restrictions.getIntensity().index(currentClass)
+			except:
+				pass
+
+
 
 	schedule.setRating(firstRank+secondRank+thirdRank)
