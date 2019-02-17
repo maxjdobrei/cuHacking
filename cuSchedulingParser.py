@@ -113,6 +113,7 @@ def	courseGetter(page,courseCode,courseNumber):
 					pass
 				elif	superCount	==	0:
 					listOfAll.append(parent)
+					superList = 0
 					superList	=	MegaList()
 					superList.addIt(listOfAll)
 					superCount+=1
@@ -189,6 +190,7 @@ def	getSchedule(allResults,someResults,	rating):
 
 def	main(term,classes):
 	#constants	throughout	the	functions
+	
 	url	=	"https://central.carleton.ca/prod/bwysched.p_select_term?wsea_code=EXT"
 	numberOfClasses	=	len(classes)
 	if	term	==	"Fall":
@@ -214,7 +216,7 @@ def	main(term,classes):
 			return	[]
 	##print(crazyHugeList)
 	return	(crazyHugeList)
-
+'''
 def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
@@ -250,7 +252,8 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	
 	
 	for	sched	in	bestFive:
-		listoBisto.append(scheduleParser(sched))
+		if sched is not None:
+			listoBisto.append(scheduleParser(sched))
 	return	listoBisto
 
 print(superMain("Winter",["COMP1406","COMP1805"],"18:00", "Morning"))

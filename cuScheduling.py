@@ -11,7 +11,8 @@ def createSchedules(lecturesFound):
 		if lecturesFound == "":
 			return []
 	except:
-		pass
+		if len(lecturesFound) == 0:
+			return []
 
 	tempSchedule = [0,0,0,0,0,0]
 
