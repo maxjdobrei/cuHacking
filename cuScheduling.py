@@ -96,6 +96,8 @@ def createSchedules(lecturesFound):
 						temp = Schedule(version)
 						validSchedules.append(temp)
 			continue
+	print("YUH")
+	print(validSchedules)
 	return validSchedules
 
 
@@ -162,8 +164,6 @@ def overlapCheckerTwo(potentialSchedule):
 								return False
 						elif time[0][0] > timeTwo[0][0] and time[0][0] < timeTwo[1][0]:
 							return False
-					else:
-						return False
 	return True
 
 
@@ -267,7 +267,7 @@ def scheduleRanker(schedule, restrictions):
 			try:
 				course.getTutorials()
 			except:
-				course.remove(course)
+				currentClassesOnDay.remove(course)
 		for classes in currentClassesOnDay:
 			temp=classes.getTimes()
 			if restrictions.getTimeofDay()=="":
@@ -340,14 +340,15 @@ def lectureParser(lecture,i):
 def scheduleParser(schedule):
 	lecturesList = []
 	i=0
-	for lecture in schedule.lectures:
-		if len(lecture.courseCode) == 9:
-			i +=1
-			lecturesList.append(lectureParser(lecture,i))
-	newLecturesList = lecturesList[:]
-	for tutorial in schedule.lectures:
-		if len(tutorial.courseCode) == 10:
-			for lecture in newLecturesList:
-				if lecture['name'] in tutorial.courseCode:
-					lecturesList.append(lectureParser(tutorial,lecture['color']))
+	if schedule is not None:
+		for lecture in schedule.lectures:
+			if len(lecture.courseCode) == 9:
+				i +=1
+				lecturesList.append(lectureParser(lecture,i))
+		newLecturesList = lecturesList[:]
+		for tutorial in schedule.lectures:
+			if len(tutorial.courseCode) == 10:
+				for lecture in newLecturesList:
+					if lecture['name'] in tutorial.courseCode:
+						lecturesList.append(lectureParser(tutorial,lecture['color']))
 	return lecturesList
