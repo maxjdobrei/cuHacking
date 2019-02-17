@@ -7,6 +7,12 @@ validSchedules = []
 
 
 def createSchedules(lecturesFound):
+	try:
+		if lecturesFound == "":
+			return [[]]
+	except:
+		pass
+
 	tempSchedule = [0,0,0,0,0,0]
 
 	for lec in lecturesFound[0]:
@@ -295,8 +301,10 @@ def scheduleRanker(schedule, restrictions):
 				oldIntensity=restrictions.getIntensity().index(currentClass)
 			except:
 				pass
-
-	schedule.setRating(firstRank+secondRank+thirdRank)
+	if (firstRank+secondRank+thirdRank>1.0):
+		schedule.setRating(1)
+	else:
+		schedule.setRating(firstRank+secondRank+thirdRank)
 
 def dayTo(day):
 	if day == 0:

@@ -5,7 +5,7 @@ from	cuScheduling	import	*
 from	Lecture	import	*
 from	Tutorial	import	*
 from	Restrictions	import	*
-	
+
 class	MegaList:
 
 	def	__init__(self):
@@ -176,9 +176,9 @@ def	getLetterInCourseCode(parent):
 	elif	parent	==	5:
 		return	"E"
 	elif	parent	==	6:
-		return	"F"	
+		return	"F"
 
-def	getSchedule(allResults,	someResults,	rating):
+def	getSchedule(allResults,	rating):
 	for	result	in	allResults:
 		if	result.getRating()	==	rating:
 			for	r	in	someResults:
@@ -221,22 +221,34 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		return []
 	rankedResults	=	[]
 	listoBisto	=	[]
+	if timeOfDay=="" or timeOfDay==null:
+		timeofDay="23:00"
+	if hardTime=="" or hardTime==null:
+		hardTime="Afternoon"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
 	for	result	in	results:
 		scheduleRanker(result,restrictions)
 		rankedResults.append(result.getRating())
 		rankedResults.sort()
-		bestFive	=	[]
-		if	len(rankedResults)	>=	5:
-			for	i	in	range(len(rankedResults)	-	5,	len(rankedResults)):
-				temp	=	bestFive[:]
-				bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-		else:
-			for	i	in	range(len(rankedResults)):
-				temp	=	bestFive[:]
-				bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-	for	sched in bestFive:
-		if not sched is None:
-			listoBisto.append(scheduleParser(sched))
-	return	listoBisto
+		rankedResults.reverse()
+	return getSchedule(results, rankedResults[0] )
+	
+	# 	toBeCopied = []
+	# 	bestFive	=	[]
+	# 	if	len(rankedResults)	>=	10:
+	# 		for	i	in	range(10):
+	# 			temp	=	bestFive
+	# 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
+	# 			toBeCopied.append(bestFive[0])
+	# 			toBeCopied.append(bestFive[2])
+	# 			toBeCopied.append(bestFive[4])
+	# 			toBeCopied.append(bestFive[6])
+	# 			toBeCopied.append(bestFive[8])
+	# 	else:
+	# 		for	i	in	range(len(rankedResults)):
+	# 			temp	=	bestFive[:]
+	# 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
+	# 	for	sched	in	bestFive:
+	# 		listoBisto.append(scheduleParser(sched))
+	# return	listoBisto
