@@ -219,16 +219,16 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	listoBisto	=	[]
 	if timeOfDay=="":
 		timeofDay="Afternoon"
-	if hardTime==""
-		hardTime="23:00"
+	if hardTime=="":
+		hardTime="1:00"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
 	for	result	in	results:
 		scheduleRanker(result,restrictions)
 		rankedResults.append(result.getRating())
-		rankedResults.sort()
-		rankedResults.reverse()
-	return getSchedule(results, rankedResults[0] )
+	rankedResults.sort()
+	rankedResults.reverse()
+	return scheduleParser(getSchedule(results, rankedResults[0] ))
 
 	# 	toBeCopied = []
 	# 	bestFive	=	[]

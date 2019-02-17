@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 @app.route("/main", methods=['GET','POST'])
 def hello():
-
     days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
     courses = []
     schedules = [[]]
@@ -27,14 +26,16 @@ def hello():
                 myBreak = str(int(myBreak[:2])+addT)+":"+myBreak[3:5]
 
             timePreference = request.form['time-preference']
+            if timePreference == "No Preference":
+                timePreference = ""
 
             for i in range(1,7,1):
                 if request.form['course'+str(i)] != "":
                     courses.append(request.form['course'+str(i)])
 
 
-            #session['schedules'] = superMain(term,courses,myBreak,timePreference)
-            schedules = superMain(term,courses,myBreak,timePreference)
+            session['schedules'] = superMain(term,courses,myBreak,timePreference)
+            #schedules = superMain(term,courses,myBreak,timePreference)
             session['scheduleIndex'] = 0
 
         if request.form['form'] == 'previous':
@@ -47,7 +48,7 @@ def hello():
             if session['scheduleIndex'] > len(session['schedules'])-1:
                 session['scheduleIndex'] = 0
     
-    return render_template("main.html",days = days, schedule = schedules)
+    return render_template("main.html",days = days, schedule = session['schedules'][session['scheduleIndex']])
 
 if __name__ == '__main__':
     app.run(debug=True)
