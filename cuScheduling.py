@@ -88,7 +88,7 @@ def removeNull(potentialSchedule):
 			indexesToRemove.append(i)
 	for index in indexesToRemove:
 		potentialSchedule.remove(0)
-	
+
 	return potentialSchedule
 
 
@@ -99,14 +99,14 @@ def scheduleValidator(potentialSchedule):
 def overlapChecker(potentialSchedule, lecture):
 	temp = lecture.getTimes()
 	times = []
-	
+
 
 	tempSched = Schedule(potentialSchedule)
 	for i in range(5):
 		dayClasses = tempSched.getClassesOnDay(i)
 		for lect in dayClasses:
 			times.append(lect.getTimes())
-		
+
 		for time in times:
 			if temp[0][0] == time[1][0]:
 				if temp[0][1] <= time[1][1]:
@@ -132,7 +132,7 @@ def overlapCheckerTwo(potentialSchedule):
 
 			for time in times:
 				for timeTwo in times:
-						
+
 					if time[0][0] == timeTwo[1][0]:
 						if time[0][1] <= timeTwo[1][1]:
 							return False
@@ -223,17 +223,31 @@ def scheduleRanker(schedule, restrictions):
 
 	breakTime=restrictions.getbreakTime()
 
+	classMetPref = 0
+	classNotMetPref = 0
+  	for j in range(5):
+		currentClassesOnDay=schedule.getClassesOnDay(j)
+		for classes in currentClassesOnDay:
+			if restrictions.getTimeofDay()=="":
+				break
+
+			elif temp[0][0] <classRange[0] or temp[1][0]>classRange[1]:
+				classNotMetPref += 1
+		classMetPref = len(currentClassesOnDay) - classNotMetPref
+		difference = 0.09 / (classMetPref / classNotMetPref)
+		firstRank -= difference
+
 	for i in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(i)
-		difference=0.09/len(currentClassesOnDay)
 		differenceIntensity=(0.07/len(currentClassesOnDay))*2
 		oldIntensity=restrictions.getIntensity().index(currentClassesOnDay[0])
 		for currentClass in currentClassesOnDay:
 			temp=currentClass.getTimes()
-			if temp[0][0] <classRange[0] or temp[1][0]>classRange[1]:
-				firstRank=firstRank-difference
 
-			if temp[0][0]> breakTime[0][0] or temp[1][0]<breakTime[1][0]:
+
+			if breakTime=="":
+				pass
+			elif temp[0][0]> breakTime[0][0] or temp[1][0]<breakTime[1][0]:
 				secondRank=secondRank-0.04
 			try:
 				throwAway=currentClass.getTutorials()
