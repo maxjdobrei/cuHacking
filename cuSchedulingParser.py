@@ -215,7 +215,6 @@ def	main(term,classes):
 	##print(crazyHugeList)
 	return	(crazyHugeList)
 
-
 def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
