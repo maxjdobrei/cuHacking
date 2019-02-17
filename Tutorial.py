@@ -13,7 +13,7 @@ def __init__(self,courseCode,Time,location,day):
     self.startTime= (int(Start[0]), int(Start[1]))
     self.endTime= (int(End[0]), int(End[1]))
     self.location=location
-    self.days=convertDay(day)
+    self.days=self.convertDay(day)
 
 def convertDay(self,day):
     dayNum=[]
