@@ -260,7 +260,7 @@ def scheduleRanker(schedule, restrictions):
 			try:
 				throwAway=currentClass.getTutorials()
 
-				if oldIntensity==restrictions.getIntensity().index(currentClass)-1 or oldIntensity==restrictions.getIntensity().index(currentClass)+1:
+				if oldIntensity==restrictions.getIntensity().index(currentClass.getCoursecode())-1 or oldIntensity==restrictions.getIntensity().index(currentClass.getCoursecode())+1:
 					thirdRank=thirdRank-differenceIntensity
 				oldIntensity=restrictions.getIntensity().index(currentClass)
 			except:
