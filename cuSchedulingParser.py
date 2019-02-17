@@ -216,7 +216,8 @@ def	main(term,classes):
 			return	[]
 	##print(crazyHugeList)
 	return	(crazyHugeList)
-'''
+
+	
 def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
@@ -238,7 +239,7 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		for	i	in	range(10):
 			temp	=	bestFive
 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-			print(bestFive)
+			
 		toBeCopied.append(bestFive[0])
 		toBeCopied.append(bestFive[2])
 		toBeCopied.append(bestFive[4])
@@ -248,13 +249,15 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		for	i	in	range(len(rankedResults)):
 			temp	=	bestFive[:]
 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
-			print(bestFive)
+			
 	
 	
 	for	sched	in	bestFive:
 		if sched is not None:
 			listoBisto.append(scheduleParser(sched))
+
+	results.clear()
 	return	listoBisto
 
-print(superMain("Winter",["COMP1406","COMP1805"],"18:00", "Morning"))
-print(superMain("Winter",["ENST1020","MATH1007"],"18:00", "Morning"))
+(superMain("Winter",["COMP1406","COMP1805"],"18:00", "Morning"))
+(superMain("Winter",["ENST1020","MATH1007"],"18:00", "Morning"))

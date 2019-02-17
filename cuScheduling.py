@@ -97,8 +97,6 @@ def createSchedules(lecturesFound):
 						temp = Schedule(version)
 						validSchedules.append(temp)
 			continue
-	print("YUH")
-	print(validSchedules)
 	return validSchedules
 
 
@@ -264,11 +262,13 @@ def scheduleRanker(schedule, restrictions):
 	classNotMetPref = 0
 	for j in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(j)
+		
 		for course in currentClassesOnDay:
 			try:
 				course.getTutorials()
 			except:
 				currentClassesOnDay.remove(course)
+	
 		for classes in currentClassesOnDay:
 			temp=classes.getTimes()
 			if restrictions.getTimeofDay()=="":
