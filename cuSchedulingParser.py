@@ -181,11 +181,7 @@ def	getLetterInCourseCode(parent):
 def	getSchedule(allResults,	rating):
 	for	result	in	allResults:
 		if	result.getRating()	==	rating:
-			for	r	in	someResults:
-				if	result	==	r:
-					pass
-				else:
-					return	result
+			return	result
 
 def	main(term,classes):
 	#constants	throughout	the	functions
@@ -221,18 +217,23 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		return []
 	rankedResults	=	[]
 	listoBisto	=	[]
-	if timeOfDay=="" or timeOfDay==null:
+	if timeOfDay=="":
 		timeofDay="23:00"
-	if hardTime=="" or hardTime==null:
+	if hardTime=="":
 		hardTime="Afternoon"
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
 	results	=	createSchedules(main(term,classes))
-	for	result	in	results:
-		scheduleRanker(result,restrictions)
-		rankedResults.append(result.getRating())
-		rankedResults.sort()
-		rankedResults.reverse()
-	return getSchedule(results, rankedResults[0] )
+	if results == []:
+		return [[]]
+	for	final	in	results:
+		scheduleRanker(final,restrictions)
+	
+	highestRating = 0.0
+	for thing in results:
+		if thing.rating > highestRating:
+			highestRating = thing.rating
+	
+	return scheduleParser(getSchedule(results, highestRating ))
 	
 	# 	toBeCopied = []
 	# 	bestFive	=	[]
