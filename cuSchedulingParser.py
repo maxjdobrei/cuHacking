@@ -215,29 +215,6 @@ def	main(term,classes):
 	##print(crazyHugeList)
 	return	(crazyHugeList)
 
-#	rankedResults	=	[]
-#	restrictions	=	Restrictions("Morning",	"3:30",	["MATH1002","ENST1020","COMP1406","COMP1805"])
-#	results	=	createSchedules(main("Winter",["ENST1020","MATH1002","COMP1406","COMP1805"]))
-#	for	result	in	results:
-#		scheduleRanker(result,restrictions)
-#		rankedResults.append(result.getRating())
-
-
-#	rankedResults.sort()
-#	rankedResults.reverse()
-#	bestFive	=	[]
-#	if	len(rankedResults)	>=	5:
-#		for	i	in	range(5):
-#			temp	=	bestFive
-#			bestFive.append(getSchedule(results,	temp,	rankedResults[i]))
-#	else:
-#		for	i	in	range(len(rankedResults)):
-#			temp	=	bestFive
-#			bestFive.append(getSchedule(results,	temp,	rankedResults[i]))
-
-#	print(bestFive)
-
-
 def	superMain(term,classes,hardTime,timeOfDay):
 	rankedResults	=	[]
 	listoBisto	=	[]
