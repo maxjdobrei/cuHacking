@@ -193,7 +193,6 @@ def courseGetter(page,courseCode,courseNumber):
                 else:
                     listOfAll.append(parent)
                     superList.addIt(listOfAll)
-    #print (superList.bigList)
     try:
         half = len(superList.bigList)//2
     except:
@@ -212,22 +211,20 @@ def objectCreator(superList,courseCode,courseNumber):
     for entry in superList.bigList:
         #if it is a lecture.
         if entry[3] == True:
+            newCourseCode = ''
             tutorials = []
             parentWanted = entry[5]
             for tutEntry in superList.bigList:
                 if tutEntry[4] == True and parentWanted == tutEntry[5]:
                     newTutorial = Tutorial(courseCode,entry[1],entry[2],entry[0])
                     tutorials.append(newTutorial)
+                newCourseCode = courseCode.get('sel_subj')
+                newCourseCode += courseNumber
             newLecture = Lecture(courseCode, entry[1],entry[2],entry[0],tutorials)
             crazyList.append(newLecture)   
     return crazyList
 
-                
-    
-
-    
-
-    
+            
 def main(term,classes):
     #constants throughout the functions
     url = "https://central.carleton.ca/prod/bwysched.p_select_term?wsea_code=EXT"
