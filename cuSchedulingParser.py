@@ -1,84 +1,89 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import mechanicalsoup
+from cuScheduling import *
+from Lecture import *
+from Tutorial import *
+from Restrictions import *
 
 
-class Lecture:
 
-    startTime=tuple()
-    endTime=tuple()
-    location=""
-    days=[]
-    tutorials=[]
-    courseCode=""
+# class Lecture:
 
-    def __init__(self,courseCode,Time,location,day,tutorialsdays):
-        Start= Time[0].split(":")
-        End= Time[1].split(":")
-        self.courseCode=courseCode
-        self.startTime= (int(Start[0]), int(Start[1]))
-        self.endTime= (int(End[0]), int(End[1]))
-        self.location=location
-        self.days= self.convertLectureDay(day)
-        self.tutorials = tutorialsdays
+#     startTime=tuple()
+#     endTime=tuple()
+#     location=""
+#     days=[]
+#     tutorials=[]
+#     courseCode=""
 
-    def toList(self):
-        return [self.courseCode,self.startTime,self.endTime,self.location,self.days,self.tutorials]
-    def convertLectureDay(self,day):
-        dayNum=[]
-        tempdays = day
-        for days in tempdays:
-            if days=="Mon":
-               dayNum.append(0)
-            elif days == "Tue":
-                dayNum.append(1)
-            elif days == "Wed":
-                dayNum.append(2)
-            elif days == "Thu":
-                dayNum.append(3)
-            elif days == "Fri":
-                dayNum.append(4)
-        return dayNum
+#     def __init__(self,courseCode,Time,location,day,tutorialsdays):
+#         Start= Time[0].split(":")
+#         End= Time[1].split(":")
+#         self.courseCode=courseCode
+#         self.startTime= (int(Start[0]), int(Start[1]))
+#         self.endTime= (int(End[0]), int(End[1]))
+#         self.location=location
+#         self.days= self.convertLectureDay(day)
+#         self.tutorials = tutorialsdays
 
-    def getLectureTimes(self):
-	    return (self.startTime, self.endTime)
+#     def toList(self):
+#         return [self.courseCode,self.startTime,self.endTime,self.location,self.days,self.tutorials]
+#     def convertLectureDay(self,day):
+#         dayNum=[]
+#         tempdays = day
+#         for days in tempdays:
+#             if days=="Mon":
+#                dayNum.append(0)
+#             elif days == "Tue":
+#                 dayNum.append(1)
+#             elif days == "Wed":
+#                 dayNum.append(2)
+#             elif days == "Thu":
+#                 dayNum.append(3)
+#             elif days == "Fri":
+#                 dayNum.append(4)
+#         return dayNum
 
-############################################################################
-class Tutorial:
-    startTime=tuple()
-    endTime=tuple()
-    location=""
-    days=[]
-    courseCode=""
-    def __init__(self,courseCode,Time,location,day):
-        Start= Time[0].split(":")
-        End= Time[1].split(":")
+#     def getLectureTimes(self):
+# 	    return (self.startTime, self.endTime)
 
-        self.courseCode=courseCode
-        self.startTime= (int(Start[0]), int(Start[1]))
-        self.endTime= (int(End[0]), int(End[1]))
-        self.location=location
-        self.days=self.convertDay(day)
-    def __str__(self):
-        return "Days of tuts " + self.days
-    def convertDay(self,day):
-        dayNum=[]
-        tempdays = day
-        for days in tempdays:
-            if days=="Mon":
-                dayNum.append(0)
-            elif days == "Tue":
-                dayNum.append(1)
-            elif days == "Wed":
-                dayNum.append(2)
-            elif days == "Thu":
-                dayNum.append(3)
-            elif days == "Fri":
-                dayNum.append(4)
-        return dayNum
+# ############################################################################
+# class Tutorial:
+#     startTime=tuple()
+#     endTime=tuple()
+#     location=""
+#     days=[]
+#     courseCode=""
+#     def __init__(self,courseCode,Time,location,day):
+#         Start= Time[0].split(":")
+#         End= Time[1].split(":")
+
+#         self.courseCode=courseCode
+#         self.startTime= (int(Start[0]), int(Start[1]))
+#         self.endTime= (int(End[0]), int(End[1]))
+#         self.location=location
+#         self.days=self.convertDay(day)
+#     def __str__(self):
+#         return "Days of tuts " + self.days
+#     def convertDay(self,day):
+#         dayNum=[]
+#         tempdays = day
+#         for days in tempdays:
+#             if days=="Mon":
+#                 dayNum.append(0)
+#             elif days == "Tue":
+#                 dayNum.append(1)
+#             elif days == "Wed":
+#                 dayNum.append(2)
+#             elif days == "Thu":
+#                 dayNum.append(3)
+#             elif days == "Fri":
+#                 dayNum.append(4)
+#         return dayNum
     
-    def getTimes(self):
-	    return (self.startTime, self.endTime)
+#     def getTimes(self):
+# 	    return (self.startTime, self.endTime)
 
 #################################################################################################################
 
@@ -228,11 +233,11 @@ def main(term,classes):
     url = "https://central.carleton.ca/prod/bwysched.p_select_term?wsea_code=EXT"
     numberOfClasses = len(classes)
     if term == "Fall":
-        term = {"term_code": "201910"}
+        term = {"term_code": "201830"}
     elif term == "Winter":
         term = {"term_code": "201910"}
     elif term == "Summer":
-        term = {"term_code": "201910"}
+        term = {"term_code": "201920"}
     crazyHugeList = []
     #Gets name of class, and number of class, and runs functions
     for lecture in classes:
@@ -251,5 +256,5 @@ def main(term,classes):
     return (crazyHugeList)
 
 
-
-main("Fall",["COMP1406","ENST1020","GEOM2007","COMP1805","MATH1104"])
+results = createSchedules(main("Fall",["COMP1406","ENST1020","GEOM2007","COMP1805","MATH1104"]))
+print(results)
