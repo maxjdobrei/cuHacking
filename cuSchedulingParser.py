@@ -216,6 +216,9 @@ def	main(term,classes):
 	return	(crazyHugeList)
 
 def	superMain(term,classes,hardTime,timeOfDay):
+	bestFive = []
+	if term == []:
+		return []
 	rankedResults	=	[]
 	listoBisto	=	[]
 	restrictions	=	Restrictions(timeOfDay,	hardTime,	classes)
@@ -237,4 +240,3 @@ def	superMain(term,classes,hardTime,timeOfDay):
 		if not sched is None:
 			listoBisto.append(scheduleParser(sched))
 	return	listoBisto
-print(superMain("Winter",["COMP1406","COMP1805","ENST1020"],"3:30","Morning"))
