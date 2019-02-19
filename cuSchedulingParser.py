@@ -240,7 +240,7 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	bestFive	=	[]
 	if	len(rankedResults)	>=	10:
 		for	i	in	range(10):
-			temp	=	bestFive
+			temp	=	bestFive[:]
 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
 			
 		toBeCopied.append(bestFive[0])
@@ -253,12 +253,14 @@ def	superMain(term,classes,hardTime,timeOfDay):
 			temp	=	bestFive[:]
 			bestFive.append(getSchedule(results,temp,	rankedResults[i]))
 			
+		for potentialSched in bestFive:
+			toBeCopied.append(potentialSched)
 	
-	
-	for	sched	in	bestFive:
+	for	sched	in	toBeCopied:
 		if sched is not None:
 			listoBisto.append(scheduleParser(sched))
 
 	results.clear()
 	return	listoBisto
 
+print(superMain("Winter",["COMP1406","COMP1805","ENST1020","NEUR1202","STAT2507"],"!2:00","Afternoon"))
