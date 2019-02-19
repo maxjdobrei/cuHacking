@@ -1,0 +1,12 @@
+KNOWN ISSUES:
+
+overlap checker 2 still not working 100%
+as a result of that, the validSchedules created are not all valid
+
+there seems to be an issue with the ranking system as well
+
+the final result given back has duplicates, even though that shouldn't be possible
+
+any class that starts / ends at #:05 has the minutes value stored as just 5, not 05
+Reason for that is because when we cast the string of "05" to int, thats just mf "5", doesnt need the 0
+how to fix?

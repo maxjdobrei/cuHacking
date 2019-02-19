@@ -263,4 +263,4 @@ def	superMain(term,classes,hardTime,timeOfDay):
 	results.clear()
 	return	listoBisto
 
-print(superMain("Winter",["COMP1406","COMP1805","ENST1020","NEUR1202","STAT2507"],"!2:00","Afternoon"))
+print(superMain("Winter",["COMP1406","COMP1805","ENST1020","NEUR1202","STAT2507"],"12:00","Afternoon"))

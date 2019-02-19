@@ -258,16 +258,17 @@ def scheduleRanker(schedule, restrictions):
 
 	breakTime=restrictions.getbreakTime()
 
-	classMetPref = 0
-	classNotMetPref = 0
+
 	for j in range(5):
 		currentClassesOnDay=schedule.getClassesOnDay(j)
 		
-		for course in currentClassesOnDay:
-			try:
-				course.getTutorials()
-			except:
-				currentClassesOnDay.remove(course)
+		classMetPref = 0
+		classNotMetPref = 0
+		# for course in currentClassesOnDay:
+		# 	try:
+		# 		course.getTutorials()
+		# 	except:
+		# 		currentClassesOnDay.remove(course)
 	
 		for classes in currentClassesOnDay:
 			temp=classes.getTimes()
