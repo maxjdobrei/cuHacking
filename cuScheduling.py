@@ -106,7 +106,7 @@ def removeNull(potentialSchedule):
 		if potentialSchedule[i] == 0:
 			indexesToRemove.append(i)
 	for index in indexesToRemove:
-		potentialSchedule.remove(0)
+		potentialSchedule.remove(index)         #changed from remove(0) -> remove remove(index)
 
 	return potentialSchedule
 
@@ -116,7 +116,7 @@ def scheduleValidator(potentialSchedule):
 
 
 def overlapChecker(potentialSchedule, lecture):
-	temp = lecture.getTimes()
+	temp = lecture.getTimes()                    #temp[0] will refer to the start time, temp[1] will refer to the end time
 	times = []
 
 
@@ -127,13 +127,13 @@ def overlapChecker(potentialSchedule, lecture):
 			times.append(lect.getTimes())
 
 		for time in times:
-			if temp[0][0] == time[1][0]:
+			if temp[0][0] == time[1][0]:                               #if the start hour is the same as the other end hour, compare minutes
 				if temp[0][1] <= time[1][1]:
 					return False
-			elif temp[1][0] == time[0][0]:
+			elif temp[1][0] == time[0][0]:                             #if the end time is the same as the other start time, compare minutes
 				if temp[1][1] <= time[0][1]:
 					return False
-			elif temp[0][0] > time[0][0] and temp[0][0] < time[1][0]:
+			elif temp[0][0] > time[0][0] and temp[0][0] < time[1][0]:  #if the start hour is inbetween start and end hours of the thing from schedule
 				return False
 
 	return True
@@ -152,10 +152,11 @@ def overlapCheckerTwo(potentialSchedule):
 
 			for i in range(len(timez)):
 				for j in range(i, len(timez)):
+					#if time[0][1] or time[1][1]
 					time = timez[i]
 					timeTwo = timez[j]
 					if time!=timeTwo:
-						if time[0][0] == timeTwo[1][0]:
+						if time[0][0] == timeTwo[1][0]:  
 							if time[0][1] <= timeTwo[1][1]:
 								return False
 						elif time[1][0] == timeTwo[0][0]:

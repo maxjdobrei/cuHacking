@@ -124,7 +124,7 @@ def	courseGetter(page,courseCode,courseNumber):
 		half	=	len(superList.bigList)//2
 	except:
 		return	[]
-	superList.bigList	=	superList.bigList[:half]
+	superList.bigList	=	superList.bigList[:half]              #why does this contain duplicates???
 	return	objectCreator(superList,courseCode,courseNumber)
 
 
@@ -204,11 +204,11 @@ def	main(term,classes):
 	for	lecture	in	classes:
 		name	=	''
 		for	i	in	range	(0,4):
-			name+=	lecture[i]
+			name+=	lecture[i]                #course code
 		subject	=	{"sel_subj":name}
 		number	=	''
 		for	i	in	range	(4,8):
-			number	+=	lecture[i]
+			number	+=	lecture[i]         
 		temp	=	termSelector(url,term,subject,number)
 		crazyHugeList.append(temp)
 	for	item	in	crazyHugeList:

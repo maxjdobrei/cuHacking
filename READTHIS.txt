@@ -10,3 +10,9 @@ the final result given back has duplicates, even though that shouldn't be possib
 any class that starts / ends at #:05 has the minutes value stored as just 5, not 05
 Reason for that is because when we cast the string of "05" to int, thats just mf "5", doesnt need the 0
 how to fix?
+
+TODO \ CUSCHEDULING 2.0 IDEAS:
+-optimization of the backend...  (possible conversion to java?)
+	-update / change the classes we used (eg lecture/schedule)
+-dont parse every single time its ran, rather run it once per (day? month? year?) and save data to database (SQL?)
+-even better UI/UX (tobys suggestion of automatically scrolling down to show the results for ex) (tho its still totally awesome, no hate towards you my love)
