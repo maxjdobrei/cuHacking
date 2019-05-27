@@ -116,7 +116,7 @@ def scheduleValidator(potentialSchedule):
 
 
 def overlapChecker(potentialSchedule, lecture):
-	temp = lecture.getTimes()                    #temp[0] will refer to the start time, temp[1] will refer to the end time
+	temp = lecture.getTimes()                    
 	times = []
 
 

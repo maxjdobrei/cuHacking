@@ -1,6 +1,6 @@
 KNOWN ISSUES:
 
-overlap checker 2 still not working 100%
+overlap checker 2 still not working 100% -> idk how
 as a result of that, the validSchedules created are not all valid
 
 there seems to be an issue with the ranking system as well
@@ -9,10 +9,18 @@ the final result given back has duplicates, even though that shouldn't be possib
 
 any class that starts / ends at #:05 has the minutes value stored as just 5, not 05
 Reason for that is because when we cast the string of "05" to int, thats just mf "5", doesnt need the 0
-how to fix?
+how to fix? -> store as strings and only cast to int when needed to make the numerical comparison
 
 TODO \ CUSCHEDULING 2.0 IDEAS:
 -optimization of the backend...  (possible conversion to java?)
+	-recursion to create the schedules?
 	-update / change the classes we used (eg lecture/schedule)
+		-schedule object redo:
+			-should have built in behaviour for checking if the current schedule is valid
+			-should have methods to add/remove lectures 
+			-should have method for getting the restrictions/preferences associated with the schedule
+			-
+
+
 -dont parse every single time its ran, rather run it once per (day? month? year?) and save data to database (SQL?)
 -even better UI/UX (tobys suggestion of automatically scrolling down to show the results for ex) (tho its still totally awesome, no hate towards you my love)
