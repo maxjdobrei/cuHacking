@@ -13,14 +13,22 @@ how to fix? -> store as strings and only cast to int when needed to make the num
 
 TODO \ CUSCHEDULING 2.0 IDEAS:
 -optimization of the backend...  (possible conversion to java?)
-	-recursion to create the schedules?
+	-recursion to create the schedules? -> semi recursive approach discussed with vivek
 	-update / change the classes we used (eg lecture/schedule)
 		-schedule object redo:
 			-should have built in behaviour for checking if the current schedule is valid
 			-should have methods to add/remove lectures 
 			-should have method for getting the restrictions/preferences associated with the schedule
+			-should be able to reset the schedule
 			-
+-atm our version does not take into account the availability of the classes... highkey sounds like an important feature to add
 
 
--dont parse every single time its ran, rather run it once per (day? month? year?) and save data to database (SQL?)
+
+
+
+-dont parse every single time its ran, rather run it once per (day? month? year?) and save data to database (SQL?)****** seems like a fantastic idea.
+
+
 -even better UI/UX (tobys suggestion of automatically scrolling down to show the results for ex) (tho its still totally awesome, no hate towards you my love)
+
