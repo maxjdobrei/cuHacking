@@ -16,6 +16,15 @@ def createSchedules(lecturesFound):
 
 	tempSchedule = [0,0,0,0,0,0]
 
+	# testDict = {}
+
+	# for lecture in lecturesFound:
+	# 	testDict[lecture.getCoursecode()] = lecture.getDay()
+	# createSchedulesHelperTest(lecturesFound, 0, testDict)
+	
+
+
+
 	for lec in lecturesFound[0]:
 		tempSchedule.pop(0)
 		tempSchedule.insert(0, lec)
@@ -98,6 +107,21 @@ def createSchedules(lecturesFound):
 						validSchedules.append(temp)
 			continue
 	return validSchedules
+
+
+# def createSchedulesHelperTest(Lectures, index, dict):
+# 	if index != len(Lectures):
+# 		potentialSchedule = []
+# 		courseCode = Lectures[index].getCourseCode()
+# 		sections = dict[courseCode]
+# 		for section in sections:
+# 			potentialSchedule.append(section)
+# 			if overlapCheckerTwo(potentialSchedule):
+# 				createSchedulesHelperTest(Lectures, index+1, dict)
+# 			else:
+# 				potentialSchedule.pop(index)
+
+
 
 
 def removeNull(potentialSchedule):
@@ -200,7 +224,7 @@ def addTutorialsHelper(potentialSchedule, lectures):
 	tutorialsToCheck = True
 	listOfSchedules = []
 	holder = 0
-	counter = 0;
+	counter = 0
 
 	while tutorialsToCheck:
 		foundSomething = False
