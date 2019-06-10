@@ -21,7 +21,9 @@ TODO \ CUSCHEDULING 2.0 IDEAS:
 			-should have method for getting the restrictions/preferences associated with the schedule
 			-should be able to reset the schedule
 			-
--atm our version does not take into account the availability of the classes... highkey sounds like an important feature to add
+-atm our version does not take into account the availability of the classes... highkey sounds like an important feature to add.
+-the info we need is already on the page that we scrape?????? why didnt we do this b4. just have to check the 'status' field in the table
+ and make sure its set to open
 
 
 
