@@ -1,6 +1,6 @@
 package Test;
 
-public class Tutorial extends Lecture 
+public class Tutorial extends Section
 {
 	protected String meetingPlace;
 	

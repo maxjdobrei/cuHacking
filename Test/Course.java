@@ -12,6 +12,10 @@ public class Course
 		affiliatedSections = sections;
 	}
 
+	public Section[] getSections()
+	{
+		return affiliatedSections;
+	}
 
 
 }

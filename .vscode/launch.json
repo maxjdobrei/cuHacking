@@ -5,6 +5,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"type": "java",
+			"name": "CodeLens (Launch) - test",
+			"request": "launch",
+			"mainClass": "test",
+			"projectName": "cuHacking_7d25d1bf"
+		},
+		{
+			"type": "java",
+			"name": "CodeLens (Launch) - testMain",
+			"request": "launch",
+			"mainClass": "testMain",
+			"projectName": "cuHacking_7d25d1bf"
+		},
+		{
 			"name": "Python: Current File (Integrated Terminal)",
 			"type": "python",
 			"request": "launch",

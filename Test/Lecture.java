@@ -16,9 +16,6 @@ public abstract class Lecture
 	}
 
 	
-
-
-
 	public String getName()
 	{
 		return this.courseCode;

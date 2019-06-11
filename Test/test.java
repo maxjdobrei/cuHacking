@@ -1,7 +1,10 @@
 package Test;
 
-public class testMain
+public class test
 {
+
+	ArrayList<Schedule> allValidSchedules = new ArrayList<Schedule>();
+	
 	public static void main(String[] args)
 	{
 		
@@ -30,11 +33,36 @@ public class testMain
 		
 		Course comp1805 = new Course("COMP1805", testSectionsTwo);
 	
-	
-	
-	
+		Course[] mycourses = {comp1406, comp1805};
+
+		Schedule blankSlate = new Schedule();
+		createSchedules(myCourses, 0, blankSlate);
+
+
 	}
 	
-	
-	
+	public void createSchedules(Course[] courses, int index, Schedule temp)
+	{
+		if (index == courses.length())
+		{
+			allValidSchedules.add(temp);
+		}
+		else
+		{
+			Section[] sectionsToAdd = courses[index].getSections();
+			for (Section potentialLec : sectionsToAdd)
+			{
+				temp.addSection(potentialSec);
+				temp.overlapCheck();
+				if (temp.isValid())
+				{
+					createSchedules(courses, index+1, temp);
+				}
+				else
+				{
+					temp.removeSection(index);
+				}			
+			}
+		}
+	}
 }
