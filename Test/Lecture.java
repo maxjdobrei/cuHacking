@@ -7,7 +7,7 @@ public abstract class Lecture
 	protected String meetingPlace;
 	protected String meetingDays;
 
-	public Lecture(String name, String time, String location, String[] days)
+	public Lecture(String name, String time, String location, String days)
 	{
 		courseCode = name;
 		meetingTimes = time;
@@ -31,7 +31,7 @@ public abstract class Lecture
 		return this.meetingPlace;
 	}
 	
-	public  String[] getDays()
+	public  String getDays()
 	{
 		return this.meetingDays;
 	}

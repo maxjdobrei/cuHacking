@@ -1,5 +1,9 @@
 package Test;
 
+
+import java.util.ArrayList;
+
+
 public class Schedule
 {
 	protected Section[] courseLoad;
@@ -9,7 +13,7 @@ public class Schedule
 
 	public Schedule()
 	{
-		courseLoad = new Section[6];
+		courseLoad = new Section[12]; //6 courses with the potential for each to have a tutorial
 		valid = true;
 		rating = 1.0;
 
@@ -47,7 +51,7 @@ public class Schedule
 			}
 		}
 	
-		for (i = 0; i < existingLecs.size(); i++)
+		for (int i = 0; i < existingLecs.size(); i++)
 		{
 			checkOverlapHelper(existingLecs.get(i), new ArrayList<Section>(existingLecs));
 		}
@@ -57,15 +61,15 @@ public class Schedule
 	//theres a fair amount of redundancy because of the days and other stuff but i think itll work
 	public void checkOverlapHelper(Section model, ArrayList<Section> workList)
 	{
-		Integer startHourOne = new Integer();
-		Integer startHourTwo = new Integer();
-		Integer startMinueOne = new Integer();
-		Integer startMinuteOne = new Integer();
+		Integer startHourOne;
+		Integer startHourTwo;
+		Integer startMinuteOne = null;
+		Integer startMinuteTwo = null; 
 
-		Integer endHourOne = new Integer();
-		Integer endHourTwo = new Integer();
-		Integer endMinueOne = new Integer();
-		Integer endMinuteOne = new Integer();
+		Integer endHourOne; 
+		Integer endHourTwo; 
+		Integer endMinuteOne = null; 
+		Integer endMinuteTwo = null; 
 
 
 		String[] modelDays = getRealDays(model);
@@ -90,11 +94,14 @@ public class Schedule
 					{
 						if (day.equals(otherDay))
 						{
-							startHourOne = Integer.parseInt(model.getTime().charAt(0) + model.getTime().charAt(1));
-							startHourTwo = Integer.parseInt(toBeCompared.getTime().charAt(0) + toBeCompared.getTime().charAt(1));
+							
+							
+							
+							startHourOne = Integer.parseInt(model.getTime().substring(0,2));
+							startHourTwo = Integer.parseInt(toBeCompared.getTime().substring(0,2));
 
-							endHourOne = Integer.parseInt(model.getTime().charAt(7) + model.getTime().charAt(8));
-							endHourTwo = Integer.parseInt(toBeCompared.getTime().charAt(7) + toBeCompared.getTime().charAt(8));
+							endHourOne = Integer.parseInt(model.getTime().substring(7,9));
+							endHourTwo = Integer.parseInt(toBeCompared.getTime().substring(7,9));
 
 							
 							//start or endtime is smack dab in the middle of the model lecture
@@ -108,11 +115,11 @@ public class Schedule
 							{
 								
 								// all the timeslots will be formatted the same way, for ex; '10:30, 11:45'
-								startMinuteOne = Integer.parseInt(model.getTime().charAt(3) + model.getTime().charAt(4));
-								startMinuteTwo = Integer.parseInt(toBeCompared.getTime().charAt(3) + toBeCompared.getTime().charAt(4));
+								startMinuteOne = Integer.parseInt(model.getTime().substring(3,5));
+								startMinuteTwo = Integer.parseInt(toBeCompared.getTime().substring(3,5));
 								
-								endMinuteOne = Integer.parseInt(model.getTime().charAt(10) + model.getTime().charAt(11));
-								endMinuteTwo = Integer.parseInt(toBeCompared.getTime().charAt(10) + toBeCompared.getTime().charAt(11));
+								endMinuteOne = Integer.parseInt(model.getTime().substring(10));
+								endMinuteTwo = Integer.parseInt(toBeCompared.getTime().substring(10));
 
 								
 								//the other invalid possibilities are if the start/end hours are the same and minutes needed to be compared to determine validity
@@ -160,11 +167,11 @@ public class Schedule
 	public String[] getRealDays(Section lecture)
 	{
 		String[] days;
-		int comma = model.getDays().indexOf(",");
+		int comma = lecture.getDays().indexOf(",");
 		if (comma != -1)
 		{
-			String dayOne = model.getDays().subString(0,comma);
-			String dayTwo = moodel.getDays().subString(comma+1,model.getDays().length() + 1);
+			String dayOne = lecture.getDays().substring(0,comma);
+			String dayTwo = lecture.getDays().substring(comma+1);
 			days = new String[2];
 			days[0] = dayOne;
 			days[1] = dayTwo;
@@ -172,7 +179,7 @@ public class Schedule
 		else
 		{
 			days = new String[1];
-			days[0] = model.getDays();
+			days[0] = lecture.getDays();
 		}
 
 		return days;
@@ -190,6 +197,7 @@ public class Schedule
 			if (courseLoad[i] == null)
 			{
 				courseLoad[i] = temp;
+				break;
 			}
 		}
 	}

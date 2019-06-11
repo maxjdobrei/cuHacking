@@ -5,6 +5,8 @@ public class Course
 	
 	protected String name;
 	protected Section[] affiliatedSections;
+	protected boolean hasTutorial;
+
 
 	public Course(String courseCode, Section[] sections)
 	{	

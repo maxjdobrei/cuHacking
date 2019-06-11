@@ -1,9 +1,13 @@
 package Test;
 
+
+
+import java.util.ArrayList;
+
 public class test
 {
 
-	ArrayList<Schedule> allValidSchedules = new ArrayList<Schedule>();
+	static ArrayList<Schedule> allValidSchedules = new ArrayList<Schedule>();
 	
 	public static void main(String[] args)
 	{
@@ -36,14 +40,14 @@ public class test
 		Course[] mycourses = {comp1406, comp1805};
 
 		Schedule blankSlate = new Schedule();
-		createSchedules(myCourses, 0, blankSlate);
+		createSchedules(mycourses, 0, blankSlate);
 
 
 	}
 	
-	public void createSchedules(Course[] courses, int index, Schedule temp)
+	public static void createSchedules(Course[] courses, int index, Schedule temp)
 	{
-		if (index == courses.length())
+		if (index == courses.length)
 		{
 			allValidSchedules.add(temp);
 		}
@@ -52,10 +56,25 @@ public class test
 			Section[] sectionsToAdd = courses[index].getSections();
 			for (Section potentialLec : sectionsToAdd)
 			{
-				temp.addSection(potentialSec);
-				temp.overlapCheck();
+				temp.addSection(potentialLec);
+				temp.checkOverlap();
 				if (temp.isValid())
 				{
+					//gotta fix some shit
+					for (Tutorial tut : potentialLec.getTutorials())
+					{
+						temp.addSection(tut);
+						temp.checkOverlap();
+						if (temp.isValid())
+						{
+							createSchedules(courses, index+1, temp);
+						}
+						else
+						{
+							temp.removeSection(index);
+						}		
+					}
+					//WBVNVEINViwlnvliewun
 					createSchedules(courses, index+1, temp);
 				}
 				else
