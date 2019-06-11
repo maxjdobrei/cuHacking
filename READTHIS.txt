@@ -20,7 +20,11 @@ TODO \ CUSCHEDULING 2.0 IDEAS:
 			-should have methods to add/remove lectures 
 			-should have method for getting the restrictions/preferences associated with the schedule
 			-should be able to reset the schedule
-			-
+			
+	-the only problem atm is that i cant get the code i wrote to run in the cuhacking folder, idk it works fine if u copy paste to another place or just
+	run and compile the files from terminal. vscode sux maybe?
+
+
 -atm our version does not take into account the availability of the classes... highkey sounds like an important feature to add.
 -the info we need is already on the page that we scrape?????? why didnt we do this b4. just have to check the 'status' field in the table
  and make sure its set to open
