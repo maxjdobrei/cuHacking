@@ -43,7 +43,7 @@ public class Schedule
 		ArrayList<Section> existingLecs = new ArrayList<Section>();
 
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			if (courseLoad[i] != null)
 			{
@@ -125,7 +125,7 @@ public class Schedule
 								//the other invalid possibilities are if the start/end hours are the same and minutes needed to be compared to determine validity
 								if (startHourOne == startHourTwo)
 								{
-									if (startMinuteOne < startMinuteTwo)
+									if (startMinuteOne <= startMinuteTwo)
 									{
 										this.valid = false;
 										break;
@@ -133,7 +133,7 @@ public class Schedule
 								}
 								else if (endHourOne == endHourTwo)
 								{
-									if (endMinuteOne > endMinuteTwo)
+									if (endMinuteOne >= endMinuteTwo)
 									{
 										this.valid = false;
 										break;
@@ -141,7 +141,7 @@ public class Schedule
 								}
 								else if (startHourOne == endHourTwo)
 								{
-									if (startMinuteOne < endMinuteTwo)
+									if (startMinuteOne <= endMinuteTwo)
 									{
 										this.valid = false;
 										break;
@@ -149,7 +149,7 @@ public class Schedule
 								}
 								else if (endHourOne == startHourTwo)
 								{
-									if (endMinuteOne > startMinuteTwo)
+									if (endMinuteOne >= startMinuteTwo)
 									{
 										this.valid = false;
 										break;
@@ -192,7 +192,7 @@ public class Schedule
 
 	public void addSection(Section temp)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 12; i++)
 		{
 			if (courseLoad[i] == null)
 			{
@@ -202,9 +202,16 @@ public class Schedule
 		}
 	}
 
-	public void removeSection(int index)
+	public void removeSection(Section toBeRemoved)
 	{
-		courseLoad[index] = null;
+		for (int i = 0; i < 12; i++)
+		{
+			if (courseLoad[i] == toBeRemoved)
+			{
+				courseLoad[i] = null;
+				break;
+			}
+		}
 	}
 
 

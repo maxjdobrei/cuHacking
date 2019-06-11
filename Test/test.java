@@ -1,7 +1,6 @@
 package Test;
 
 
-
 import java.util.ArrayList;
 
 public class test
@@ -29,7 +28,7 @@ public class test
 		
 		Tutorial[] comp1805b1 = { new Tutorial("COMP1805B1", "10:05, 11:25", "Mackenzie Room 423", "Friday"), new Tutorial("COMP1805B2", "11:35, 12:55", "Mackenzie Room 4", "Thursday")};
 	
-		Section comp1805a = new Section("COMP1805A", "10:05, 11:35", "Azrieli Theatre room 102", "Tuesday, Thursday");
+		Section comp1805a = new Section("COMP1805A", "10:05, 11:25", "Azrieli Theatre room 102", "Tuesday, Thursday");
 		Section comp1805b = new Section("COMP1805B", "13:05, 14:25", "Azrieli Theatre room 301", "Monday, Wednesday", comp1805b1);
 		Section[] testSectionsTwo = new Section[2];
 		testSectionsTwo[0] = comp1805a;
@@ -61,25 +60,27 @@ public class test
 				if (temp.isValid())
 				{
 					//gotta fix some shit
-					for (Tutorial tut : potentialLec.getTutorials())
-					{
-						temp.addSection(tut);
-						temp.checkOverlap();
-						if (temp.isValid())
-						{
-							createSchedules(courses, index+1, temp);
-						}
-						else
-						{
-							temp.removeSection(index);
-						}		
-					}
+					// for (Tutorial tut : potentialLec.getTutorials())
+					// {
+					// 	temp.addSection(tut);
+					// 	temp.checkOverlap();
+					// 	if (temp.isValid())
+					// 	{
+					// 		createSchedules(courses, index+1, temp);
+					// 	}
+					// 	else
+					// 	{
+					// 		temp.removeSection(index);
+					// 	}		
+					// }
 					//WBVNVEINViwlnvliewun
 					createSchedules(courses, index+1, temp);
+					temp.removeSection(potentialLec);
+				
 				}
 				else
 				{
-					temp.removeSection(index);
+					temp.removeSection(potentialLec);
 				}			
 			}
 		}
